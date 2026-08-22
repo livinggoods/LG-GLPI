@@ -42,23 +42,10 @@
                 {{ text_login|safe_html }}
             </div>
         {% endif %}
-        <div class="modern-login-grid">
-            <div class="modern-login-intro">
-                <span class="modern-login-kicker">{{ config('app_name') }}</span>
-                <h1>{{ __('Welcome back') }}</h1>
-                <p>
-                    Manage assets, assistance, notifications, inventory, and daily service operations from one workspace.
-                </p>
-                <div class="modern-login-points" aria-hidden="true">
-                    <span>{{ __('Assets') }}</span>
-                    <span>{{ __('Tickets') }}</span>
-                    <span>{{ __('Notifications') }}</span>
-                </div>
-            </div>
-            <div class="modern-login-form">
+        <div class="row justify-content-center">
+            <div class="col-md-5">
                 <div class="card-header mb-4">
-                    <h2 class="mx-auto">{{ __('Sign in') }}</h2>
-                    <p>{{ __('Use your GLPI account to continue.') }}</p>
+                    <h2 class="mx-auto">{{ __('Login to your account') }}</h2>
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="login_name">{{ __('Login') }}</label>
@@ -120,7 +107,7 @@
             </div>
 
             {% if right_panel %}
-                <div class="modern-login-plugin">
+                <div class="col-auto px-2 text-center">
                     {{ call_plugin_hook(constant('Glpi\\Plugin\\Hooks::DISPLAY_LOGIN')) }}
                 </div>
             {% endif %}

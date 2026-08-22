@@ -85,18 +85,19 @@ header {
 }
 
 .helpdesk-home-container {
-    height: 100vh;
+    min-height: calc(100vh - 6.5rem);
 
     h1 {
-        font-size:3.7rem;
+        font-size: clamp(2.25rem, 5vw, 4.25rem);
+        font-weight: 900;
 
         // The default `--tblr-line-height-h1` line height does not play well
         // with the font size we apply here, it is better to remove it.
-        line-height: unset !important;
+        line-height: 1.05 !important;
     }
 
     .search-bar-container {
-        padding: 3rem 0;
+        padding: 2.25rem 0 0;
 
         // Must be greater than .search-overlay but smaller than the user menu
         // dropdown (1030).
@@ -109,12 +110,12 @@ header {
 }
 
 .search-banner {
-    background-color: var(--glpi-helpdesk-header);
+    background: linear-gradient(180deg, #dbe7f7 0%, #edf5fb 100%);
     position: relative;
 
     .search-banner-content {
-        padding-top:170px;
-        padding-bottom:80px;
+        padding-top: 7rem;
+        padding-bottom: 5rem;
     }
 
     .scene {
@@ -202,16 +203,55 @@ header {
 }
 
 .tiles-banner {
-    background: var(--glpi-helpdesk-tiles-section-bg);
-    padding-top:70px;
-    padding-bottom:70px;
+    background: linear-gradient(180deg, #f7fbff 0%, #edf5fb 100%);
+    padding-top: 4rem;
+    padding-bottom: 3.5rem;
+}
+
+.helpdesk-tiles-grid {
+    --bs-gutter-x: 1.5rem;
+    --bs-gutter-y: 1.5rem;
+}
+
+.helpdesk-tile-card {
+    margin: 0;
+    min-height: 9.25rem;
+
+    .card-body {
+        align-items: center;
+        display: flex;
+        padding: 1.55rem 1.75rem;
+    }
+
+    h2 {
+        font-size: 1.1rem;
+        line-height: 1.2;
+    }
+
+    .text-secondary {
+        color: #5f6f86 !important;
+        font-size: 0.96rem;
+        font-weight: 650;
+        line-height: 1.45;
+    }
+
+    .aspect-ratio-1 {
+        flex: 0 0 5.25rem;
+    }
 }
 
 .tickets-banner {
-    background: var(--glpi-helpdesk-tabs-section-bg);
-    padding-top:70px;
-    padding-bottom:70px;
+    background: #fff;
+    padding-top: 3.5rem;
+    padding-bottom: 4rem;
     flex-grow: 1;
+
+    .container-xl {
+        background: #fff;
+        border-radius: var(--modern-radius-lg, 0.75rem);
+        box-shadow: 0 22px 60px rgb(31 90 153 / 10%);
+        padding: 0;
+    }
 }
 
 // Specific style for the tabs
@@ -234,6 +274,49 @@ header {
     // Cancel parent padding, can't be done in .tab-content because the p-2 class
     // already use !important so we can't override it.
     margin: -0.5rem !important;
+}
+
+.helpdesk-home-footer {
+    background: #1f5a99;
+    border-top: 0.35rem solid #ffd04a;
+    color: #fff;
+    font-weight: 800;
+    padding: 1.45rem 0;
+}
+
+.helpdesk-footer-brand {
+    font-size: 1rem;
+}
+
+.helpdesk-footer-copy {
+    color: rgb(255 255 255 / 82%);
+}
+
+@media (max-width: 767.98px) {
+    .helpdesk-home-container {
+        h1 {
+            font-size: 2.35rem;
+        }
+
+        .search-banner-content {
+            padding-top: 4rem;
+            padding-bottom: 3rem;
+        }
+    }
+
+    .tiles-banner,
+    .tickets-banner {
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+    }
+
+    .helpdesk-tile-card {
+        min-height: 0;
+
+        .card-body {
+            padding: 1.25rem;
+        }
+    }
 }
 
 .home-ticket-list {

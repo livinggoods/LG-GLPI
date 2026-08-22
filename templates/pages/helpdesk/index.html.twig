@@ -106,11 +106,11 @@
                     {{ call_plugin_hook(constant('Glpi\\Plugin\\Hooks::DISPLAY_CENTRAL')) }}
                 </table>
 
-                <div class="row">
+                <div class="row helpdesk-tiles-grid">
                     {% for tile in tiles %}
                         <div class="col-12 col-sm-6 col-md-4 d-flex">
                             <a
-                                class="card mx-1 my-2 flex-grow-1"
+                                class="card helpdesk-tile-card flex-grow-1"
                                 href="{{ tile.getTileUrl() }}"
                             >
                                 <section class="card-body">
@@ -139,6 +139,12 @@
                 {{ tabs.showTabsContent() }}
             </div>
         </div>
+        <footer class="helpdesk-home-footer">
+            <div class="container-xl d-flex flex-column flex-md-row align-items-center justify-content-between gap-2">
+                <span class="helpdesk-footer-brand">Afyadesk</span>
+                <span class="helpdesk-footer-copy">Afyadesk 2026</span>
+            </div>
+        </footer>
     </div>
 
     <script>

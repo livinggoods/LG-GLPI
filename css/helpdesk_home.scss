@@ -86,6 +86,7 @@ header {
 
 .helpdesk-home-container {
     min-height: calc(100vh - 6.5rem);
+    overflow-x: hidden;
 
     h1 {
         font-size: clamp(2.25rem, 5vw, 4.25rem);
@@ -215,17 +216,32 @@ header {
 
 .helpdesk-tile-card {
     margin: 0;
-    min-height: 9.25rem;
+    min-height: 8.75rem;
+    transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
 
     .card-body {
         align-items: center;
         display: flex;
-        padding: 1.55rem 1.75rem;
+        padding: 1.35rem 1.55rem;
+        width: 100%;
+    }
+
+    .card-body > .d-flex {
+        align-items: center;
+        display: grid !important;
+        gap: 1.35rem;
+        grid-template-columns: 5.25rem minmax(0, 1fr);
+        width: 100%;
     }
 
     h2 {
-        font-size: 1.1rem;
-        line-height: 1.2;
+        font-size: 1.18rem;
+        line-height: 1.18;
+        margin-bottom: 0.55rem !important;
+    }
+
+    .ms-4 {
+        margin-left: 0 !important;
     }
 
     .text-secondary {
@@ -236,7 +252,68 @@ header {
     }
 
     .aspect-ratio-1 {
-        flex: 0 0 5.25rem;
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        width: 5.25rem;
+    }
+
+    &:hover,
+    &:focus {
+        border-color: #b8d0ea;
+        box-shadow: 0 24px 52px rgb(31 90 153 / 14%) !important;
+        transform: translateY(-2px);
+    }
+}
+
+@media (min-width: 992px) {
+    .helpdesk.horizontal-layout {
+        header.topbar {
+            .header-container {
+                align-items: center;
+                display: flex;
+                gap: 1.5rem;
+                min-height: 5.75rem;
+                overflow: hidden;
+            }
+
+            .modern-app-brand {
+                flex: 0 0 17rem;
+                margin: 0;
+                width: 17rem;
+            }
+
+            .modern-brand-logo {
+                height: 3.6rem;
+                max-width: 16rem;
+                width: auto;
+            }
+
+            #navbar-menu {
+                flex: 1 1 auto;
+                min-width: 0;
+            }
+
+            #navbar-menu .navbar-nav {
+                align-items: center;
+                column-gap: 0.35rem;
+                flex-wrap: nowrap;
+                justify-content: center;
+                min-width: 0;
+            }
+
+            .nav-link {
+                align-items: center;
+                display: inline-flex;
+                gap: 0.35rem;
+                white-space: nowrap;
+            }
+
+            .ms-md-4 {
+                flex: 0 0 auto;
+                margin-left: 0.75rem !important;
+            }
+        }
     }
 }
 
@@ -337,6 +414,15 @@ header {
 
         .card-body {
             padding: 1.25rem;
+        }
+
+        .card-body > .d-flex {
+            gap: 1rem;
+            grid-template-columns: 4.25rem minmax(0, 1fr);
+        }
+
+        .aspect-ratio-1 {
+            width: 4.25rem;
         }
     }
 }

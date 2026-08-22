@@ -1815,52 +1815,6 @@ footer {
     }
 }
 
-@media (max-width: 767.98px) {
-    .page-body.container-fluid {
-        padding: 1rem;
-    }
-
-    .page-header,
-    .search_page .search-container,
-    .main-content-card,
-    .card {
-        border-radius: var(--modern-radius) !important;
-    }
-
-    .search_page .search-container .search-header {
-        align-items: stretch;
-        flex-direction: column;
-    }
-
-    .search_page .search-container .search-header .btn,
-    .search_page .search-container .search-header .btn-group {
-        width: 100%;
-    }
-
-    .afyadesk-whatsapp-setup {
-        align-items: flex-start;
-        flex-direction: column;
-        padding: 1rem;
-    }
-
-    .itil-object .itil-left-side,
-    .itil-object .itil-right-side {
-        border-radius: var(--modern-radius);
-    }
-
-    .itil-footer {
-        position: static !important;
-    }
-
-    .dashboard .grid-stack,
-    .dashboard .grid-stack-item {
-        height: auto !important;
-        position: relative !important;
-        transform: none !important;
-        width: 100% !important;
-    }
-}
-
 @media (max-width: 991.98px) {
     .modern-login-grid {
         grid-template-columns: 1fr;

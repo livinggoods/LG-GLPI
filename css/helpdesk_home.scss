@@ -240,81 +240,6 @@ header {
     }
 }
 
-.helpdesk.horizontal-layout {
-    header.topbar {
-        background: #1f5a99 !important;
-        border: 0;
-        min-height: 6.25rem;
-
-        .header-container {
-            align-items: center;
-            gap: 2rem;
-            min-height: 6.25rem;
-            padding-left: 1.5rem;
-            padding-right: 1.5rem !important;
-        }
-
-        .navbar-brand {
-            flex: 0 0 auto;
-            margin-right: 1.5rem;
-            padding: 0;
-        }
-
-        .modern-brand-logo {
-            display: block;
-            height: 4rem;
-            max-width: 16rem;
-            object-fit: contain;
-            width: auto;
-        }
-
-        #navbar-menu {
-            flex: 1 1 auto;
-            min-width: 0;
-        }
-
-        #navbar-menu > ul,
-        #navbar-menu .navbar-nav {
-            align-items: center;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.35rem;
-            justify-content: center;
-        }
-
-        .nav-link {
-            align-items: center;
-            border-radius: 999px;
-            color: rgb(255 255 255 / 78%) !important;
-            display: inline-flex;
-            font-size: 0.98rem;
-            font-weight: 750;
-            gap: 0.4rem;
-            line-height: 1.15;
-            min-height: 2.45rem;
-            padding: 0.55rem 0.85rem !important;
-            white-space: nowrap;
-        }
-
-        .nav-link.active,
-        .nav-link.show,
-        .nav-link:hover {
-            background: rgb(255 255 255 / 13%) !important;
-            color: #fff !important;
-        }
-
-        .nav-link i,
-        .nav-link svg {
-            opacity: 0.9;
-        }
-
-        .ms-md-4 {
-            flex: 0 0 auto;
-            margin-left: 1rem !important;
-        }
-    }
-}
-
 .tickets-banner {
     background: #fff;
     padding-top: 3.5rem;
@@ -390,47 +315,6 @@ header {
 }
 
 @media (max-width: 767.98px) {
-    .helpdesk.horizontal-layout {
-        header.topbar {
-            min-height: auto;
-
-            .header-container {
-                gap: 0.75rem;
-                min-height: auto;
-                padding-bottom: 0.85rem;
-                padding-top: 0.85rem;
-            }
-
-            .navbar-brand {
-                margin-right: 0;
-            }
-
-            .modern-brand-logo {
-                height: 3rem;
-                max-width: 12rem;
-            }
-
-            #navbar-menu {
-                flex-basis: 100%;
-                order: 10;
-            }
-
-            #navbar-menu > ul,
-            #navbar-menu .navbar-nav {
-                align-items: stretch;
-                gap: 0.45rem;
-                justify-content: flex-start;
-                padding-top: 0.75rem;
-            }
-
-            .nav-link {
-                justify-content: center;
-                min-height: 2.35rem;
-                width: 100%;
-            }
-        }
-    }
-
     .helpdesk-home-container {
         h1 {
             font-size: 2.35rem;
@@ -452,36 +336,7 @@ header {
         min-height: 0;
 
         .card-body {
-            align-items: flex-start;
             padding: 1.25rem;
-        }
-
-        .card-body > .d-flex {
-            gap: 1rem;
-        }
-
-        .card-body .ms-4 {
-            margin-left: 0 !important;
-        }
-
-        .aspect-ratio-1 {
-            flex-basis: 4rem;
-        }
-    }
-
-    #tabspanel {
-        align-items: stretch;
-        flex-direction: column;
-        padding: 0.65rem;
-
-        .nav-item,
-        .nav-link {
-            width: 100%;
-        }
-
-        .nav-link {
-            border-radius: var(--modern-radius, 0.5rem) !important;
-            justify-content: center;
         }
     }
 }

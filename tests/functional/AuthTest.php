@@ -76,7 +76,7 @@ class AuthTest extends DbTestCase
         $methods = Auth::getLoginAuthMethods();
         $expected = [
             '_default'  => 'local',
-            'local'     => 'GLPI internal database',
+            'local'     => 'Afyadesk internal database',
         ];
         $this->assertSame($expected, $methods);
     }
@@ -205,7 +205,7 @@ class AuthTest extends DbTestCase
         $this->assertSame('CAS', Auth::getMethodName(Auth::CAS, 0));
         $this->assertSame('x509 certificate authentication', Auth::getMethodName(Auth::X509, 0));
         $this->assertSame('Other', Auth::getMethodName(Auth::EXTERNAL, 0));
-        $this->assertSame('GLPI internal database', Auth::getMethodName(Auth::DB_GLPI, 0));
+        $this->assertSame('Afyadesk internal database', Auth::getMethodName(Auth::DB_GLPI, 0));
         $this->assertSame('API', Auth::getMethodName(Auth::API, 0));
 
         $this->assertSame('LDAP directory: _local_ldap', Auth::getMethodLink(Auth::LDAP, $local_ldap_id));
@@ -230,7 +230,7 @@ class AuthTest extends DbTestCase
         $this->assertSame('CAS', Auth::getMethodLink(Auth::CAS, 0));
         $this->assertSame('x509 certificate authentication', Auth::getMethodLink(Auth::X509, 0));
         $this->assertSame('Other', Auth::getMethodLink(Auth::EXTERNAL, 0));
-        $this->assertSame('GLPI internal database', Auth::getMethodLink(Auth::DB_GLPI, 0));
+        $this->assertSame('Afyadesk internal database', Auth::getMethodLink(Auth::DB_GLPI, 0));
         $this->assertSame('API', Auth::getMethodLink(Auth::API, 0));
 
         $this->assertSame(

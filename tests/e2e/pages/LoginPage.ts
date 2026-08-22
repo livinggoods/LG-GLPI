@@ -93,7 +93,7 @@ export class LoginPage extends GlpiPage
         } else {
             await this.remember_me_checkbox.uncheck();
         }
-        await this.doSetDropdownValue(this.login_source_dropdown, 'GLPI internal database');
+        await this.doSetDropdownValue(this.login_source_dropdown, 'Afyadesk internal database');
         await this.sign_in_button.click();
     }
 

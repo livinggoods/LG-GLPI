@@ -1282,7 +1282,7 @@ class Auth extends CommonGLPI
             self::CAS => __('CAS'),
             self::X509 => __('x509 certificate authentication'),
             self::EXTERNAL => __('Other'),
-            self::DB_GLPI => __('GLPI internal database'),
+            self::DB_GLPI => __('Afyadesk internal database'),
             self::API => __('API'),
             default => '',
         };
@@ -1683,7 +1683,7 @@ class Auth extends CommonGLPI
 
         $elements = [
             '_default'  => 'local',
-            'local'     => __("GLPI internal database"),
+            'local'     => __("Afyadesk internal database"),
         ];
 
         // Get LDAP

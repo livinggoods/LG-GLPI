@@ -34,6 +34,21 @@
 {% import 'components/form/fields_macros.html.twig' as fields %}
 
 {% block form_fields %}
+    <div class="col-12">
+        <section class="afyadesk-whatsapp-setup">
+            <div class="afyadesk-whatsapp-icon" aria-hidden="true">
+                <i class="ti ti-brand-whatsapp"></i>
+            </div>
+            <div>
+                <p class="afyadesk-kicker">{{ __('WhatsApp notifications') }}</p>
+                <h2>{{ __('Configure WhatsApp delivery') }}</h2>
+                <p>
+                    {{ __('Connect Afyadesk to your WhatsApp provider, then use the test button to confirm messages can be delivered before enabling templates in production.') }}
+                </p>
+            </div>
+        </section>
+    </div>
+
     {{ fields.textField('whatsapp_api_url', config('whatsapp_api_url'), __('WhatsApp API base URL'), {
         helper: __('For Meta Cloud API, use the Graph API base URL.'),
         additional_attributes: {
@@ -72,4 +87,11 @@
             placeholder: '+256700000000'
         }
     }) }}
+
+    <div class="col-12">
+        <div class="afyadesk-form-note">
+            <i class="ti ti-shield-check" aria-hidden="true"></i>
+            <span>{{ __('Keep access tokens private and rotate them regularly from your WhatsApp provider dashboard.') }}</span>
+        </div>
+    </div>
 {% endblock %}

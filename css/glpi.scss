@@ -1472,6 +1472,112 @@ legend {
     border-left: 0.25rem solid var(--modern-primary-strong);
 }
 
+.afyadesk-alert,
+.alert {
+    border-radius: var(--modern-radius);
+    box-shadow: 0 14px 32px rgb(31 90 153 / 8%);
+}
+
+.afyadesk-alert .alert-title,
+.alert .alert-title {
+    color: var(--modern-ink);
+    font-weight: 850;
+}
+
+.alert-info {
+    background: #edf7ff;
+    border-color: #b8daf6;
+    color: #174f86;
+}
+
+.alert-danger {
+    background: #fff4f4;
+    border-color: #ffc7c7;
+    color: #8a1f1f;
+}
+
+.alert-warning {
+    background: #fff8e7;
+    border-color: #ffe3a3;
+    color: #7a5200;
+}
+
+.alert-success {
+    background: #edf9f0;
+    border-color: #bfe7c7;
+    color: #1f7a32;
+}
+
+.afyadesk-error-card {
+    margin-inline: auto;
+    max-width: 62rem;
+}
+
+.afyadesk-error-card .card-body {
+    padding: 1.25rem;
+}
+
+.afyadesk-whatsapp-setup {
+    align-items: center;
+    background:
+        linear-gradient(135deg, rgb(18 140 126 / 12%), rgb(31 90 153 / 10%)),
+        #fff;
+    border: 1px solid var(--modern-border);
+    border-radius: var(--modern-radius-lg);
+    display: flex;
+    gap: 1.25rem;
+    margin-bottom: 1.25rem;
+    padding: 1.35rem;
+}
+
+.afyadesk-whatsapp-icon {
+    align-items: center;
+    background: #128c7e;
+    border-radius: var(--modern-radius);
+    color: #fff;
+    display: inline-flex;
+    flex: 0 0 3.75rem;
+    font-size: 2rem;
+    height: 3.75rem;
+    justify-content: center;
+    width: 3.75rem;
+}
+
+.afyadesk-kicker {
+    color: #128c7e;
+    font-size: 0.78rem;
+    font-weight: 900;
+    letter-spacing: 0.06em;
+    margin: 0 0 0.2rem;
+    text-transform: uppercase;
+}
+
+.afyadesk-whatsapp-setup h2 {
+    color: var(--modern-ink);
+    font-size: 1.35rem;
+    font-weight: 900;
+    margin: 0 0 0.35rem;
+}
+
+.afyadesk-whatsapp-setup p:last-child {
+    color: var(--modern-muted);
+    font-weight: 650;
+    margin: 0;
+}
+
+.afyadesk-form-note {
+    align-items: center;
+    background: var(--modern-primary-soft);
+    border: 1px solid #c9def7;
+    border-radius: var(--modern-radius);
+    color: var(--modern-primary-strong);
+    display: flex;
+    gap: 0.65rem;
+    font-weight: 750;
+    margin-top: 0.75rem;
+    padding: 0.9rem 1rem;
+}
+
 .debug-panel,
 .debug-toolbar {
     border-color: var(--modern-border);
@@ -1569,6 +1675,35 @@ footer {
     .search-form {
         min-width: 0;
         width: 100%;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .page-body.container-fluid {
+        padding: 1rem;
+    }
+
+    .page-header,
+    .search_page .search-container,
+    .main-content-card,
+    .card {
+        border-radius: var(--modern-radius) !important;
+    }
+
+    .search_page .search-container .search-header {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .search_page .search-container .search-header .btn,
+    .search_page .search-container .search-header .btn-group {
+        width: 100%;
+    }
+
+    .afyadesk-whatsapp-setup {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 1rem;
     }
 }
 

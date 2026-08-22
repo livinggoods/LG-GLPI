@@ -96,6 +96,7 @@ class Config extends CommonDBTM
         'smtp_oauth_client_secret',
         'smtp_oauth_options',
         'smtp_oauth_refresh_token',
+        'whatsapp_access_token',
         'glpinetwork_registration_key',
         'ldap_pass', // this one should not exist anymore, but may be present when admin restored config dump after migration
     ];
@@ -221,6 +222,7 @@ class Config extends CommonDBTM
         }
 
         $input = $this->handleSmtpInput($input);
+        $input = $this->handleWhatsappInput($input);
 
         if (isset($input["proxy_passwd"]) && empty($input["proxy_passwd"])) {
             unset($input["proxy_passwd"]);
@@ -461,6 +463,28 @@ class Config extends CommonDBTM
             $input['smtp_oauth_options'] = '{}';
             $input['smtp_oauth_refresh_token'] = '';
         }
+
+        return $input;
+    }
+
+    /**
+     * Handle WhatsApp notification input values.
+     *
+     * @param array $input
+     *
+     * @return array
+     */
+    private function handleWhatsappInput(array $input): array
+    {
+        if (isset($input['whatsapp_access_token']) && empty($input['whatsapp_access_token'])) {
+            unset($input['whatsapp_access_token']);
+        }
+
+        if (isset($input['_blank_whatsapp_access_token']) && $input['_blank_whatsapp_access_token']) {
+            $input['whatsapp_access_token'] = '';
+        }
+
+        unset($input['_blank_whatsapp_access_token']);
 
         return $input;
     }

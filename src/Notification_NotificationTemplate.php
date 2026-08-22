@@ -58,6 +58,7 @@ class Notification_NotificationTemplate extends CommonDBRelation
     public const MODE_SMS       = 'sms';
     public const MODE_XMPP      = 'xmpp';
     public const MODE_IRC       = 'irc';
+    public const MODE_WHATSAPP  = 'whatsapp';
 
     #[Override]
     public static function getTypeName($nb = 0)
@@ -391,6 +392,10 @@ TWIG, $twig_params);
                 'label'  => __('Browser'),
                 'from'   => 'core',
             ],
+            self::MODE_WHATSAPP  => [
+                'label'  => __('WhatsApp'),
+                'from'   => 'core',
+            ],
             /*self::MODE_WEBSOCKET => [
             'label'  => __('Websocket'),
             'from'   => 'core'
@@ -544,7 +549,7 @@ TWIG, $twig_params);
     {
         global $CFG_GLPI;
         foreach (array_keys(self::getModes()) as $mode) {
-            if ($CFG_GLPI['notifications_' . $mode]) {
+            if ($CFG_GLPI['notifications_' . $mode] ?? false) {
                 return true;
             }
         }

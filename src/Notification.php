@@ -224,6 +224,10 @@ class Notification extends CommonDBTM implements FilterableInterface
             $menu['options'][NotificationAjaxSetting::class]['title'] = NotificationAjaxSetting::getTypeName();
             $menu['options'][NotificationAjaxSetting::class]['page']  = NotificationAjaxSetting::getFormURL(false);
             $menu['options'][NotificationAjaxSetting::class]['icon']  = NotificationAjaxSetting::getIcon();
+
+            $menu['options'][NotificationWhatsappSetting::class]['title'] = NotificationWhatsappSetting::getTypeName();
+            $menu['options'][NotificationWhatsappSetting::class]['page']  = NotificationWhatsappSetting::getFormURL(false);
+            $menu['options'][NotificationWhatsappSetting::class]['icon']  = NotificationWhatsappSetting::getIcon();
         }
         if (count($menu)) {
             return $menu;
@@ -660,7 +664,7 @@ class Notification extends CommonDBTM implements FilterableInterface
         $modes = Notification_NotificationTemplate::getModes();
         $restrict_modes = [];
         foreach ($modes as $mode => $conf) {
-            if ($CFG_GLPI['notifications_' . $mode]) {
+            if ($CFG_GLPI['notifications_' . $mode] ?? false) {
                 $restrict_modes[] = $mode;
             }
         }

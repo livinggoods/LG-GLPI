@@ -587,7 +587,7 @@ class QueuedNotification extends CommonDBTM
 
             if (
                 ($limit_modes !== null && !in_array($mode, $limit_modes, true))
-                || !$CFG_GLPI['notifications_' . $mode]
+                || !($CFG_GLPI['notifications_' . $mode] ?? false)
                 || !$eventclass::canCron()
             ) {
                 //mode is not in limits, is disabled, or cannot be called from cron, passing

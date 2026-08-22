@@ -95,6 +95,7 @@ class GLPIKey
             'smtp_passwd',
             'smtp_oauth_client_secret',
             'smtp_oauth_refresh_token',
+            'whatsapp_access_token',
         ],
     ];
 

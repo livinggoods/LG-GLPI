@@ -1,0 +1,75 @@
+{#
+ # ---------------------------------------------------------------------
+ #
+ # GLPI - Gestionnaire Libre de Parc Informatique
+ #
+ # http://glpi-project.org
+ #
+ # @copyright 2015-2026 Teclib' and contributors.
+ # @licence   https://www.gnu.org/licenses/gpl-3.0.html
+ #
+ # ---------------------------------------------------------------------
+ #
+ # LICENSE
+ #
+ # This file is part of GLPI.
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version.
+ #
+ # This program is distributed in the hope that it will be useful,
+ # but WITHOUT ANY WARRANTY; without even the implied warranty of
+ # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ # GNU General Public License for more details.
+ #
+ # You should have received a copy of the GNU General Public License
+ # along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ #
+ # ---------------------------------------------------------------------
+ #}
+
+{% extends 'generic_show_form.html.twig' %}
+{% import 'components/form/fields_macros.html.twig' as fields %}
+
+{% block form_fields %}
+    {{ fields.textField('whatsapp_api_url', config('whatsapp_api_url'), __('WhatsApp API base URL'), {
+        helper: __('For Meta Cloud API, use the Graph API base URL.'),
+        additional_attributes: {
+            placeholder: 'https://graph.facebook.com/v20.0'
+        }
+    }) }}
+
+    {{ fields.textField('whatsapp_phone_number_id', config('whatsapp_phone_number_id'), __('WhatsApp phone number ID')) }}
+
+    {{ fields.passwordField('whatsapp_access_token', access_token, __('WhatsApp access token'), {
+        clearable: true,
+        autocomplete: 'new-password'
+    }) }}
+
+    {{ fields.textField('whatsapp_template_name', config('whatsapp_template_name'), __('WhatsApp template name'), {
+        helper: __('Optional. Use an approved WhatsApp template with one body variable for business-initiated notifications.')
+    }) }}
+
+    {{ fields.textField('whatsapp_template_language', config('whatsapp_template_language'), __('WhatsApp template language'), {
+        helper: __('Language code configured for the approved template.'),
+        additional_attributes: {
+            placeholder: 'en'
+        }
+    }) }}
+
+    {{ fields.textField('whatsapp_default_country_code', config('whatsapp_default_country_code'), __('Default country calling code'), {
+        helper: __('Used when user mobile numbers are saved without an international country code.'),
+        additional_attributes: {
+            placeholder: '256'
+        }
+    }) }}
+
+    {{ fields.textField('whatsapp_admin_recipient', config('whatsapp_admin_recipient'), __('Test recipient phone number'), {
+        helper: __('Used by the test button and as the global administrator recipient for WhatsApp notifications.'),
+        additional_attributes: {
+            placeholder: '+256700000000'
+        }
+    }) }}
+{% endblock %}

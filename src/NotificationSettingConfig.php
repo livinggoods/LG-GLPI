@@ -107,7 +107,7 @@ class NotificationSettingConfig extends CommonDBTM
             $settings = getItemForItemtype($settings_class);
             $mode['label']          = $settings->getEnableLabel();
             $mode['label_settings'] = $settings->getTypeName();
-            $mode['is_active']      = (bool) $CFG_GLPI["notifications_$mode_key"];
+            $mode['is_active']      = (bool) ($CFG_GLPI["notifications_$mode_key"] ?? false);
             $mode['setting_url']    = $settings->getFormURL();
             $mode['icon']           = $settings::getIcon();
         }

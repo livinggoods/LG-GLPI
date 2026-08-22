@@ -1269,14 +1269,15 @@ h4 {
     z-index: 1;
 }
 
-.central.search_page .search-card .search-results thead:first-child th,
-.central.search_page .search-results thead th {
-    position: static !important;
-    top: auto !important;
+body.central.search_page .search-card table.search-results > thead:first-child > tr > th {
+    position: sticky !important;
+    top: 0 !important;
+    transform: translateY(-3.75rem);
+    z-index: 5 !important;
 }
 
 .central.search_page .search-results tbody tr:first-child td {
-    padding-top: 1.1rem;
+    padding-top: 1.4rem;
 }
 
 .table,

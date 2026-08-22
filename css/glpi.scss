@@ -1264,9 +1264,19 @@ h4 {
 .search_page .table-responsive,
 .search_page .table-responsive-lg {
     clear: both;
-    margin-top: 0.75rem;
+    margin-top: 0;
     position: relative;
     z-index: 1;
+}
+
+.central.search_page .search-card .search-results thead:first-child th,
+.central.search_page .search-results thead th {
+    position: static !important;
+    top: auto !important;
+}
+
+.central.search_page .search-results tbody tr:first-child td {
+    padding-top: 1.1rem;
 }
 
 .table,

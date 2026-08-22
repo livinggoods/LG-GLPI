@@ -411,10 +411,26 @@ h4 {
 .modern-app-brand {
     align-items: center;
     display: flex;
-    gap: 0.625rem;
     margin: 0 0 1.6rem;
-    min-height: 3rem;
+    min-height: 0;
+    padding: 0;
     text-decoration: none;
+    width: 100%;
+}
+
+.modern-brand-logo {
+    background-color: transparent !important;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    display: block;
+    filter: brightness(0) invert(1);
+    height: 3.25rem;
+    max-width: 15.5rem;
+    object-fit: contain;
+    object-position: left center;
+    padding: 0;
+    width: 100%;
 }
 
 .modern-brand-mark {
@@ -458,6 +474,14 @@ h4 {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+.navbar-collapsed .modern-brand-logo {
+    height: 3rem;
+    object-fit: cover;
+    object-position: left center;
+    padding: 0.35rem;
+    width: 3rem;
 }
 
 .navbar .nav-link,
@@ -863,6 +887,10 @@ h4 {
 }
 
 .search_page .search-container .search-header {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
     box-shadow: none !important;
 }
 
@@ -1220,7 +1248,8 @@ h4 {
 .tab_cadre_fixehov,
 .datatable,
 .table-responsive {
-    overflow: hidden;
+    overflow-x: auto;
+    overflow-y: visible;
 }
 
 .table,
@@ -1237,6 +1266,25 @@ h4 {
 .datatable table > :not(caption) > * > * {
     border-color: var(--modern-border);
     padding: 0.82rem 1rem;
+}
+
+.table thead th,
+.search-results thead th,
+.tab_cadre_fixehov thead th,
+.datatable thead th {
+    line-height: 1.2;
+    min-height: 2.8rem;
+    position: relative;
+    vertical-align: middle;
+    white-space: nowrap;
+    z-index: 1;
+}
+
+.table td,
+.search-results td,
+.tab_cadre_fixehov td,
+.datatable td {
+    vertical-align: middle;
 }
 
 .table thead th:first-child,
@@ -1436,8 +1484,26 @@ footer {
 }
 
 .page-anonymous .glpi-logo {
+    background: url("../pics/logos/livinggoods-logo.png") center / contain no-repeat !important;
     filter: none;
-    max-width: 12rem;
+    height: 4.75rem;
+    max-width: 20rem;
+    transform: none;
+    width: 20rem;
+}
+
+.page-anonymous .livinggoods-login-logo {
+    background: var(--modern-primary-strong);
+    border-radius: var(--modern-radius);
+    box-shadow: 0 16px 38px rgb(31 90 153 / 15%);
+    display: inline-block;
+    filter: brightness(0) invert(1);
+    height: auto;
+    max-height: 5rem;
+    max-width: min(21rem, 82vw);
+    object-fit: contain;
+    padding: 0.85rem 1.1rem;
+    width: min(21rem, 82vw);
 }
 
 .page-anonymous .main-content-card {

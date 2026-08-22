@@ -53,7 +53,7 @@
                   </div>
                {% endif %}
 
-               <ul class="list-group list-group-flush">
+               <ul class="list-group list-group-flush afyadesk-notification-modes">
                   <li class="list-group-item">
                      <div class="d-flex align-items-center justify-content-between gap-3">
                         <div>
@@ -61,19 +61,19 @@
                            <div class="text-secondary">{{ __('Activate the notification engine for all configured channels.') }}</div>
                         </div>
                         <div class="form-check form-switch m-0">
-                        <input name="use_notifications" type="hidden" value="0" />
-                        <input name="use_notifications" id="use_notifications"
-                              class="form-check-input" type="checkbox" value="1"
-                              {{ use_notifications ? 'checked="checked"' : '' }} />
-                        <label class="form-check-label visually-hidden" for="use_notifications">{{ __('Enable notifications') }}</label>
+                           <input name="use_notifications" type="hidden" value="0" />
+                           <input name="use_notifications" id="use_notifications"
+                                 class="form-check-input" type="checkbox" value="1"
+                                 {{ use_notifications ? 'checked="checked"' : '' }} />
+                           <label class="form-check-label visually-hidden" for="use_notifications">{{ __('Enable notifications') }}</label>
                         </div>
                      </div>
                   </li>
                   {% for mode_key, mode in modes %}
                      {% set mode_disabled = not use_notifications %}
-                     <li class="list-group-item {{ mode_disabled ? 'disabled' : '' }}">
-                        <div class="d-flex align-items-center justify-content-between gap-3">
-                           <div class="d-flex align-items-center gap-3">
+                     <li class="list-group-item afyadesk-notification-mode {{ mode_disabled ? 'is-muted' : '' }}" data-notification-mode-row>
+                        <div class="d-flex align-items-center justify-content-between gap-3 flex-wrap">
+                           <div class="d-flex align-items-center gap-3 flex-grow-1">
                               <span class="avatar bg-secondary-subtle text-secondary">
                                  <i class="{{ mode['icon'] }}"></i>
                               </span>
@@ -82,17 +82,22 @@
                                  <div class="text-secondary">{{ mode['label_settings'] }}</div>
                               </div>
                            </div>
-                           <div class="d-flex align-items-center gap-3">
+                           <div class="d-flex align-items-center gap-3 ms-auto">
+                              <a href="{{ mode['setting_url'] }}" class="btn btn-outline-primary btn-sm">
+                                 <i class="ti ti-settings"></i>
+                                 <span>{{ __('Configure') }}</span>
+                              </a>
                               <span class="badge {{ mode['is_active'] ? 'bg-success-lt' : 'bg-secondary-lt' }}">
                                  {{ mode['is_active'] ? __('Active') : __('Disabled') }}
                               </span>
                               <div class="form-check form-switch m-0">
-                           <input name="notifications_{{ mode_key }}" type="hidden" value="0" />
-                           <input name="notifications_{{ mode_key }}" id="notifications_{{ mode_key }}"
-                                 class="form-check-input" type="checkbox" value="1"
-                                 {{ mode['is_active'] ? 'checked="checked"' : '' }}
-                                 {{ mode_disabled ? 'disabled' : '' }} />
-                           <label class="form-check-label visually-hidden" for="notifications_{{ mode_key }}">{{ mode['label'] }}</label>
+                                 <input name="notifications_{{ mode_key }}" type="hidden" value="0" />
+                                 <input name="notifications_{{ mode_key }}" id="notifications_{{ mode_key }}"
+                                       class="form-check-input" type="checkbox" value="1"
+                                       data-notification-engine-dependent
+                                       {{ mode['is_active'] ? 'checked="checked"' : '' }}
+                                       {{ mode_disabled ? 'disabled' : '' }} />
+                                 <label class="form-check-label visually-hidden" for="notifications_{{ mode_key }}">{{ mode['label'] }}</label>
                               </div>
                            </div>
                         </div>
@@ -160,4 +165,29 @@
       {% endif %}
       </div>
    </div>
+
+   <script>
+      document.addEventListener('DOMContentLoaded', () => {
+         const engineSwitch = document.querySelector('#use_notifications');
+         const channelSwitches = document.querySelectorAll('[data-notification-engine-dependent]');
+         const channelRows = document.querySelectorAll('[data-notification-mode-row]');
+
+         if (!engineSwitch) {
+            return;
+         }
+
+         const syncNotificationModes = () => {
+            const enabled = engineSwitch.checked;
+            channelSwitches.forEach((input) => {
+               input.disabled = !enabled;
+            });
+            channelRows.forEach((row) => {
+               row.classList.toggle('is-muted', !enabled);
+            });
+         };
+
+         engineSwitch.addEventListener('change', syncNotificationModes);
+         syncNotificationModes();
+      });
+   </script>
 {% endif %}

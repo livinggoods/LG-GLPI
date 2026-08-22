@@ -1563,6 +1563,19 @@ legend {
     padding: 1.25rem;
 }
 
+.afyadesk-notification-modes .list-group-item {
+    transition: background-color 0.18s ease, opacity 0.18s ease;
+}
+
+.afyadesk-notification-mode.is-muted {
+    background: #f4f8fc;
+    opacity: 0.78;
+}
+
+.afyadesk-notification-mode .btn {
+    white-space: nowrap;
+}
+
 .afyadesk-whatsapp-setup {
     align-items: center;
     background:

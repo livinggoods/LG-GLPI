@@ -179,9 +179,9 @@
                 @include media-breakpoint-up(lg) {
                     thead:first-child {
                         th {
-                            z-index: $zindex-sticky;
-                            position: sticky;
-                            top: 44px;
+                            z-index: auto;
+                            position: static;
+                            top: auto;
                             border: 1px solid var(--tblr-border-color);
                             border-left: 0;
                             border-right: 0;

@@ -1210,7 +1210,7 @@ TWIG,
         } else {
             $tpl_vars['css_files'][] = ['path' => 'lib/tabler.css'];
         }
-        $tpl_vars['css_files'][] = ['path' => 'css/glpi.scss'];
+        $tpl_vars['css_files'][] = ['path' => 'css/glpi.scss', 'options' => ['version' => GLPI_VERSION . '-afyadesk-ui-20260822']];
         $tpl_vars['css_files'][] = ['path' => 'css/core_palettes.scss'];
 
         foreach (ThemeManager::getInstance()->getCustomThemesPaths() as $theme_path) {

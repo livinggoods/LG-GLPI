@@ -1269,15 +1269,17 @@ h4 {
     z-index: 1;
 }
 
-body.central.search_page .search-card table.search-results > thead:first-child > tr > th {
-    position: sticky !important;
-    top: 0 !important;
-    transform: translateY(-3.75rem);
-    z-index: 5 !important;
+body.central .search_page .search-card table.search-results > thead,
+body.central .search_page .search-card table.search-results > thead > tr,
+body.central .search_page .search-card table.search-results > thead > tr > th {
+    position: static !important;
+    top: auto !important;
+    transform: none !important;
+    z-index: auto !important;
 }
 
-.central.search_page .search-results tbody tr:first-child td {
-    padding-top: 1.4rem;
+body.central .search_page .search-results tbody tr:first-child td {
+    padding-top: 0.82rem;
 }
 
 .table,

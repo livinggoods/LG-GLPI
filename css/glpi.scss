@@ -424,7 +424,7 @@ h4 {
     border-radius: 0;
     box-shadow: none;
     display: block;
-    filter: brightness(0) invert(1);
+    filter: none;
     height: 3.25rem;
     max-width: 15.5rem;
     object-fit: contain;
@@ -1492,18 +1492,27 @@ footer {
     width: 20rem;
 }
 
-.page-anonymous .livinggoods-login-logo {
+.page-anonymous .livinggoods-login-logo-panel {
+    align-items: center;
     background: var(--modern-primary-strong);
     border-radius: var(--modern-radius);
     box-shadow: 0 16px 38px rgb(31 90 153 / 15%);
-    display: inline-block;
-    filter: brightness(0) invert(1);
-    height: auto;
-    max-height: 5rem;
+    display: inline-flex;
+    justify-content: center;
+    min-height: 5rem;
     max-width: min(21rem, 82vw);
-    object-fit: contain;
     padding: 0.85rem 1.1rem;
     width: min(21rem, 82vw);
+}
+
+.page-anonymous .livinggoods-login-logo {
+    display: block;
+    filter: none;
+    height: auto;
+    max-height: 3.25rem;
+    max-width: 100%;
+    object-fit: contain;
+    width: auto;
 }
 
 .page-anonymous .main-content-card {

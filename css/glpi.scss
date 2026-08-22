@@ -35,3 +35,391 @@ $enable-negative-margins: true;
 $link-hover-decoration: none;
 
 @import "includes/includes";
+
+:root {
+    --lg-primary: #164a85;
+    --lg-primary-strong: #0f3f75;
+    --lg-primary-soft: #2c67a5;
+    --lg-accent: #ffd34d;
+    --lg-ink: #10213f;
+    --lg-muted: #52688d;
+    --lg-page: #edf4fb;
+    --lg-surface: #fff;
+    --lg-border: #d8e4f2;
+    --lg-shadow: 0 18px 45px rgb(22 74 133 / 12%);
+    --tblr-primary: var(--lg-primary);
+    --tblr-primary-rgb: 22, 74, 133;
+    --tblr-link-color: var(--lg-primary);
+    --tblr-body-bg: var(--lg-page);
+    --tblr-body-color: var(--lg-ink);
+    --tblr-border-color: var(--lg-border);
+    --tblr-border-radius: 0.5rem;
+    --tblr-font-sans-serif: Inter, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+html {
+    background: var(--lg-page);
+}
+
+body {
+    background:
+        radial-gradient(circle at top left, rgb(255 211 77 / 16%), transparent 26rem),
+        linear-gradient(180deg, #f7fbff 0, var(--lg-page) 21rem, #f8fbff 100%);
+    color: var(--lg-ink);
+    letter-spacing: 0;
+}
+
+a {
+    font-weight: 650;
+}
+
+.btn {
+    border-radius: 0.5rem;
+    font-weight: 750;
+}
+
+.btn-primary,
+.btn-outline-primary:hover,
+.btn-outline-primary:focus {
+    background: var(--lg-primary);
+    border-color: var(--lg-primary);
+    color: #fff;
+    box-shadow: 0 10px 24px rgb(22 74 133 / 20%);
+}
+
+.btn-outline-primary {
+    border-color: #9bb9df;
+    color: var(--lg-primary);
+}
+
+.btn-ghost-secondary,
+.btn-outline-secondary {
+    border-color: #c4d4e8;
+    color: var(--lg-primary);
+}
+
+.form-control,
+.form-select,
+.select2-container .select2-selection,
+.ts-control {
+    border-color: #d5e1f0;
+    border-radius: 0.55rem;
+    color: var(--lg-ink);
+    min-height: 2.85rem;
+}
+
+.form-control:focus,
+.form-select:focus,
+.select2-container--default.select2-container--focus .select2-selection,
+.ts-control.focus {
+    border-color: #8fb2dc;
+    box-shadow: 0 0 0 0.2rem rgb(22 74 133 / 14%);
+}
+
+.form-label {
+    color: var(--lg-muted);
+    font-weight: 750;
+}
+
+.card,
+.main-content-card,
+.dropdown-menu,
+.modal-content,
+.toast,
+.search-card {
+    border: 1px solid var(--lg-border);
+    border-radius: 0.5rem;
+    box-shadow: var(--lg-shadow);
+}
+
+.card-header,
+.modal-header {
+    background: #fff;
+    border-color: var(--lg-border);
+}
+
+.table {
+    --tblr-table-bg: #fff;
+    --tblr-table-striped-bg: #f5f9fd;
+    color: var(--lg-ink);
+}
+
+.table thead th,
+.search-results thead th {
+    background: #eef5fd;
+    color: var(--lg-primary-strong);
+    font-weight: 800;
+    text-transform: none;
+}
+
+.badge,
+.status {
+    border-radius: 999px;
+    font-weight: 750;
+}
+
+.alert {
+    border: 1px solid var(--lg-border);
+    border-radius: 0.5rem;
+    box-shadow: 0 12px 28px rgb(16 33 63 / 8%);
+}
+
+.page-wrapper,
+.page-body {
+    background: transparent;
+}
+
+.page-title,
+h1,
+h2,
+h3 {
+    color: var(--lg-ink);
+    letter-spacing: 0;
+}
+
+.navbar.topbar,
+.horizontal-layout > .page > header.navbar,
+.navbar.navbar-vertical.sidebar {
+    background: linear-gradient(90deg, #154b86 0%, #1f5d9e 100%) !important;
+    color: #fff;
+    border: 0;
+}
+
+.navbar.topbar,
+.horizontal-layout > .page > header.navbar {
+    min-height: 4.7rem;
+    box-shadow: 0 12px 28px rgb(15 63 117 / 20%) !important;
+}
+
+.navbar .navbar-brand {
+    color: #fff;
+    font-weight: 850;
+}
+
+.navbar .glpi-logo {
+    width: auto;
+    min-width: 13.5rem;
+    height: 3.4rem;
+    background: none !important;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.navbar .glpi-logo::before,
+.chp-brand-mark,
+.chp-login-mark {
+    width: 3.2rem;
+    height: 3.2rem;
+    border-radius: 0.6rem;
+    background: var(--lg-accent);
+    color: #073067;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.05rem;
+    font-weight: 900;
+    content: "CM";
+    flex: 0 0 auto;
+}
+
+.navbar .glpi-logo::after {
+    content: "CHP Credentials Hub";
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 850;
+    white-space: nowrap;
+}
+
+.navbar .nav-link,
+.navbar .dropdown-toggle,
+.navbar .nav-link i,
+.navbar .menu-label {
+    color: rgb(255 255 255 / 88%) !important;
+}
+
+.navbar .nav-link:hover,
+.navbar .nav-link.active,
+.navbar .nav-item.active > .nav-link {
+    background: rgb(255 255 255 / 14%);
+    color: #fff !important;
+}
+
+.sidebar .dropdown-menu,
+.topbar .dropdown-menu {
+    border-color: rgb(255 255 255 / 18%);
+}
+
+.secondary-bar {
+    background: rgb(255 255 255 / 92%) !important;
+    border-bottom: 1px solid var(--lg-border);
+    backdrop-filter: blur(10px);
+}
+
+.global-search .form-control,
+.search-input .form-control {
+    background: rgb(255 255 255 / 92%);
+    border-color: transparent;
+}
+
+.page-body.container-fluid {
+    padding-top: 1.5rem;
+}
+
+.page-header,
+.legacy > .center,
+.main-content {
+    color: var(--lg-ink);
+}
+
+.welcome-anonymous {
+    min-height: 100vh;
+    background:
+        linear-gradient(180deg, rgb(236 245 252 / 94%) 0, #f8fbff 62%),
+        var(--lg-page);
+}
+
+.chp-anonymous-header {
+    min-height: 7.25rem;
+    padding: 1.45rem 3.5vw;
+    background: linear-gradient(90deg, #174a83 0%, #215f9f 100%);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    box-shadow: 0 14px 35px rgb(16 63 117 / 18%);
+}
+
+.chp-brand {
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.chp-brand:hover {
+    color: #fff;
+}
+
+.chp-brand-title,
+.chp-brand-subtitle {
+    display: block;
+}
+
+.chp-brand-title {
+    font-size: 1.5rem;
+    font-weight: 900;
+    line-height: 1.1;
+}
+
+.chp-brand-subtitle {
+    color: rgb(255 255 255 / 82%);
+    font-size: 1rem;
+    font-weight: 500;
+    margin-top: 0.35rem;
+}
+
+.chp-version-badge {
+    border-radius: 999px;
+    background: rgb(255 255 255 / 18%);
+    color: #fff;
+    font-weight: 800;
+    padding: 0.55rem 1rem;
+}
+
+.page-anonymous {
+    min-height: calc(100vh - 7.25rem);
+}
+
+.page-anonymous .container-tight {
+    max-width: 41.25rem !important;
+    padding-top: 2.25rem !important;
+}
+
+.page-anonymous .main-content-card {
+    background: #fff;
+    border-color: var(--lg-border);
+    border-radius: 0.5rem;
+    box-shadow: 0 28px 70px rgb(16 63 117 / 14%);
+}
+
+.page-anonymous .main-content-card > .card-body {
+    padding: 2.6rem;
+}
+
+.page-anonymous .main-content-card > .card-header:empty {
+    display: none;
+}
+
+.chp-login-mark {
+    margin-bottom: 1.75rem;
+}
+
+.chp-login-eyebrow {
+    color: var(--lg-accent);
+    font-size: 0.88rem;
+    font-weight: 900;
+    margin-bottom: 1.3rem;
+    text-transform: uppercase;
+}
+
+.chp-login-heading h2 {
+    color: var(--lg-ink);
+    font-size: 2.55rem;
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 1.15rem;
+}
+
+.chp-login-summary {
+    color: var(--lg-muted);
+    font-size: 1.15rem;
+    line-height: 1.55;
+    margin: 0;
+}
+
+.chp-login-note {
+    background: #eef5fc;
+    border: 1px solid #d4e2f3;
+    border-radius: 0.5rem;
+    padding: 1.15rem 1.25rem;
+}
+
+.chp-login-note p {
+    color: var(--lg-muted);
+    font-size: 1rem;
+    margin-bottom: 0.85rem;
+}
+
+@media (max-width: 767.98px) {
+    .chp-anonymous-header {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 1.25rem;
+    }
+
+    .chp-brand-title {
+        font-size: 1.2rem;
+    }
+
+    .chp-brand-subtitle {
+        font-size: 0.9rem;
+    }
+
+    .page-anonymous .main-content-card > .card-body {
+        padding: 1.5rem;
+    }
+
+    .chp-login-heading h2 {
+        font-size: 2rem;
+    }
+
+    .navbar .glpi-logo {
+        min-width: 3.4rem;
+    }
+
+    .navbar .glpi-logo::after {
+        display: none;
+    }
+}

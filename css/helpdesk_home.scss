@@ -240,6 +240,81 @@ header {
     }
 }
 
+.helpdesk.horizontal-layout {
+    header.topbar {
+        background: #1f5a99 !important;
+        border: 0;
+        min-height: 6.25rem;
+
+        .header-container {
+            align-items: center;
+            gap: 2rem;
+            min-height: 6.25rem;
+            padding-left: 1.5rem;
+            padding-right: 1.5rem !important;
+        }
+
+        .navbar-brand {
+            flex: 0 0 auto;
+            margin-right: 1.5rem;
+            padding: 0;
+        }
+
+        .modern-brand-logo {
+            display: block;
+            height: 4rem;
+            max-width: 16rem;
+            object-fit: contain;
+            width: auto;
+        }
+
+        #navbar-menu {
+            flex: 1 1 auto;
+            min-width: 0;
+        }
+
+        #navbar-menu > ul,
+        #navbar-menu .navbar-nav {
+            align-items: center;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.35rem;
+            justify-content: center;
+        }
+
+        .nav-link {
+            align-items: center;
+            border-radius: 999px;
+            color: rgb(255 255 255 / 78%) !important;
+            display: inline-flex;
+            font-size: 0.98rem;
+            font-weight: 750;
+            gap: 0.4rem;
+            line-height: 1.15;
+            min-height: 2.45rem;
+            padding: 0.55rem 0.85rem !important;
+            white-space: nowrap;
+        }
+
+        .nav-link.active,
+        .nav-link.show,
+        .nav-link:hover {
+            background: rgb(255 255 255 / 13%) !important;
+            color: #fff !important;
+        }
+
+        .nav-link i,
+        .nav-link svg {
+            opacity: 0.9;
+        }
+
+        .ms-md-4 {
+            flex: 0 0 auto;
+            margin-left: 1rem !important;
+        }
+    }
+}
+
 .tickets-banner {
     background: #fff;
     padding-top: 3.5rem;
@@ -256,18 +331,42 @@ header {
 
 // Specific style for the tabs
 #tabspanel {
-    border-right: 0 !important;
-    border-bottom: 1px solid transparent;
+    align-items: center;
+    background: #f6faff;
+    border: 1px solid var(--modern-border, #d8e4f0) !important;
+    border-radius: var(--modern-radius-lg, 0.75rem) var(--modern-radius-lg, 0.75rem) 0 0;
+    display: flex;
+    gap: 0.35rem;
+    padding: 0.65rem 0.75rem 0;
 
     .nav-link {
-        border-bottom: 0 !important;
-        border-bottom-color: unset !important;
+        align-items: center;
+        border: 1px solid transparent !important;
+        border-radius: var(--modern-radius, 0.5rem) var(--modern-radius, 0.5rem) 0 0;
+        color: #5f6f86;
+        display: inline-flex;
+        font-weight: 800;
+        gap: 0.45rem;
+        min-height: 2.75rem;
+        padding: 0.65rem 1.05rem;
+    }
+
+    .nav-link.active {
+        background: #fff !important;
+        border-color: var(--modern-border, #d8e4f0) !important;
+        border-bottom-color: #fff !important;
+        color: #0b1d39;
+    }
+
+    .nav-link:hover {
+        color: #1f5a99;
     }
 }
 
 .tab-content {
-    border-top-right-radius: 0 !important;
-    border: 0 !important;
+    border: 1px solid var(--modern-border, #d8e4f0) !important;
+    border-radius: 0 0 var(--modern-radius-lg, 0.75rem) var(--modern-radius-lg, 0.75rem) !important;
+    border-top: 0 !important;
 }
 
 .tab-pane {
@@ -284,12 +383,10 @@ header {
     padding: 1.45rem 0;
 }
 
-.helpdesk-footer-brand {
-    font-size: 1rem;
-}
-
 .helpdesk-footer-copy {
     color: rgb(255 255 255 / 82%);
+    display: inline-block;
+    font-size: 1rem;
 }
 
 @media (max-width: 767.98px) {
@@ -362,9 +459,5 @@ header {
 }
 
 #tabspanel {
-    border-bottom: 1px solid var(--tblr-border-color) !important;
-
-    a.active {
-        border-bottom: 1px solid var(--tblr-border-color) !important;
-    }
+    border-bottom: 1px solid var(--modern-border, #d8e4f0) !important;
 }

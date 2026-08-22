@@ -53,6 +53,66 @@ header {
     }
 }
 
+.helpdesk.horizontal-layout {
+    header.topbar {
+        background: #1e5a91 !important;
+        overflow: visible;
+
+        .header-container {
+            overflow: visible;
+        }
+
+        .modern-app-brand {
+            align-items: center;
+            display: flex;
+        }
+
+        .modern-brand-logo {
+            object-fit: contain;
+            object-position: left center;
+        }
+
+        .dropdown-menu {
+            background: #fff;
+            border: 1px solid #d8e4f0;
+            box-shadow: 0 26px 70px rgb(31 90 153 / 18%);
+            color: #344054;
+            z-index: 1055;
+        }
+
+        .dropdown-header {
+            color: #64748b;
+        }
+
+        .dropdown-item,
+        .dropdown-item-text,
+        .dropdown-item.dropdown-toggle,
+        .dropdown-menu .dropdown-toggle,
+        .dropdown-menu button.dropdown-item {
+            color: #344054 !important;
+        }
+
+        .dropdown-item i,
+        .dropdown-item-text i {
+            color: #344054 !important;
+        }
+
+        .dropdown-item:hover,
+        .dropdown-item:focus {
+            background: #eef6ff;
+            color: #153e6c !important;
+        }
+
+        .dropdown-item.active,
+        .dropdown-item:active,
+        .dropdown-item.active i,
+        .dropdown-item:active i {
+            background: #dfeeff !important;
+            color: #153e6c !important;
+        }
+    }
+}
+
 .home-search {
     line-height: 26px;
 

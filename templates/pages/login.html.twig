@@ -124,7 +124,7 @@
 {% endblock %}
 
 {% block footer_block %}
-    {{ copyright_message|raw }}
+    <span class="copyright">Afyadesk 2026</span>
 
     {% if must_call_cron %}
         <div style="background-image: url('{{ path('/front/cron.php') }}');"></div>

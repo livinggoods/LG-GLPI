@@ -43,23 +43,12 @@
             </div>
         {% endif %}
         <div class="row justify-content-center">
-            <div class="col-md-11 col-lg-10">
-                <div class="chp-login-heading mb-4">
-                    <span class="chp-login-mark">CM</span>
-                    <p class="chp-login-eyebrow">Backend access</p>
-                    <h2>{{ __('Admin Login') }}</h2>
-                    <p class="chp-login-summary">
-                        Sign in to manage CHP credentials, imports, edits, deletes, exports, and the audit trail.
-                    </p>
-                </div>
-                <div class="chp-login-note mb-4">
-                    <p>Looking for the public CHP directory? Go to the frontend page.</p>
-                    <a class="btn btn-outline-primary" href="{{ index_path() }}">
-                        {{ __('Open Frontend') }}
-                    </a>
+            <div class="col-md-5">
+                <div class="card-header mb-4">
+                    <h2 class="mx-auto">{{ __('Login to your account') }}</h2>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label" for="login_name">{{ __('Username') }}</label>
+                    <label class="form-label" for="login_name">{{ __('Login') }}</label>
                     <input type="text" class="form-control" id="login_name" name="login_name" placeholder=""/>
                 </div>
                 <div class="mb-4">

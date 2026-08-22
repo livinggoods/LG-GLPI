@@ -918,7 +918,6 @@ h4 {
 }
 
 .card::before,
-.search_page .search-container::before,
 .legacy .tab_cadre::before,
 .legacy .tab_cadre_fixehov::before {
     background: var(--modern-primary-strong);
@@ -933,8 +932,7 @@ h4 {
 }
 
 .central .card::before,
-.helpdesk .card::before,
-.search_page .search-container::before {
+.helpdesk .card::before {
     content: "";
     display: block;
     height: 0.25rem;
@@ -1252,6 +1250,25 @@ h4 {
     overflow-y: visible;
 }
 
+.search_page .search-container,
+.search_page .search-card {
+    overflow: visible;
+}
+
+.search_page .search-container .search-header {
+    position: relative;
+    z-index: 2;
+}
+
+.search_page .search-results,
+.search_page .table-responsive,
+.search_page .table-responsive-lg {
+    clear: both;
+    margin-top: 0.75rem;
+    position: relative;
+    z-index: 1;
+}
+
 .table,
 .search-results table,
 .tab_cadre_fixehov,
@@ -1284,7 +1301,23 @@ h4 {
 .search-results td,
 .tab_cadre_fixehov td,
 .datatable td {
+    overflow: hidden;
     vertical-align: middle;
+}
+
+.search-results td .avatar,
+.datatable td .avatar,
+.search_page td .avatar {
+    display: inline-flex;
+    flex: 0 0 auto;
+    height: 3rem;
+    isolation: isolate;
+    margin: 0;
+    max-height: 3rem;
+    position: static;
+    vertical-align: middle;
+    width: 3rem;
+    z-index: auto;
 }
 
 .table thead th:first-child,

@@ -58,3 +58,8 @@ phpstan.neon
 /tests/e2e/output/
 /tests/e2e/.env.local
 !/tests/e2e/.env
+
+# Local Afyadesk development runtime files
+/.npm-cache/
+/server.log
+/server.err.log

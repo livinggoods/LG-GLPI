@@ -1578,6 +1578,143 @@ legend {
     padding: 0.9rem 1rem;
 }
 
+.afyadesk-notification-checklist {
+    background: #fff;
+    border: 1px solid var(--modern-border);
+    border-radius: var(--modern-radius-lg);
+    box-shadow: var(--modern-shadow-sm);
+    margin-top: 1rem;
+    padding: 1.15rem 1.25rem;
+}
+
+.afyadesk-notification-checklist h3 {
+    color: var(--modern-ink);
+    font-size: 1rem;
+    font-weight: 900;
+    margin: 0 0 0.75rem;
+}
+
+.afyadesk-notification-checklist ul {
+    color: var(--modern-muted);
+    display: grid;
+    gap: 0.55rem;
+    font-weight: 650;
+    margin: 0;
+    padding-left: 1.15rem;
+}
+
+.dashboard .grid-stack-item-content,
+.dashboard-card,
+.central .dashboard .card {
+    border: 1px solid var(--modern-border) !important;
+    border-radius: var(--modern-radius-lg) !important;
+    box-shadow: 0 18px 42px rgb(31 90 153 / 10%) !important;
+    overflow: hidden;
+}
+
+.dashboard .card-header,
+.dashboard-card .card-header {
+    background: #fbfdff;
+    border-bottom: 1px solid var(--modern-border);
+    color: var(--modern-primary-strong);
+    font-weight: 850;
+}
+
+.dashboard .big-number,
+.dashboard .display-1,
+.dashboard .display-2,
+.dashboard .display-3 {
+    color: var(--modern-primary-strong);
+    font-weight: 900;
+}
+
+.generic-show-form .card,
+.asset .card,
+.itil-object,
+.main-content-card {
+    border-top: 0.25rem solid var(--modern-primary-strong);
+}
+
+.generic-show-form label,
+.asset label,
+.itil-object label,
+.form-label {
+    color: #41516a;
+    font-weight: 750;
+}
+
+.form-control,
+.form-select,
+.select2-container--default .select2-selection--single,
+.select2-container--default .select2-selection--multiple {
+    min-height: 2.55rem;
+}
+
+.itil-object .itil-left-side,
+.itil-object .itil-right-side,
+.itil-object-fields,
+.timeline-buttons {
+    background: #fbfdff;
+    border-color: var(--modern-border);
+}
+
+.itil-footer {
+    background: rgb(255 255 255 / 94%);
+    border-color: var(--modern-border);
+    box-shadow: 0 -12px 32px rgb(31 90 153 / 9%);
+}
+
+.timeline-item .timeline-content {
+    border-radius: var(--modern-radius);
+    box-shadow: var(--modern-shadow-sm);
+}
+
+.timeline-item.ITILTask .timeline-content {
+    background: #fff8e7;
+    border-color: #ffe0a3;
+}
+
+.timeline-item.ITILFollowup .timeline-content {
+    background: #f7fbff;
+    border-color: #cfe0f2;
+}
+
+.timeline-item.ITILSolution .timeline-content {
+    background: #ecf9ff;
+    border-color: #bde7fb;
+}
+
+.empty,
+.empty-state,
+.dataTables_empty,
+.search-results .alert-info,
+.datatable .alert-info {
+    background: #f3f9ff !important;
+    border: 1px solid #cfe0f2 !important;
+    border-radius: var(--modern-radius) !important;
+    color: var(--modern-primary-strong) !important;
+    font-weight: 750;
+}
+
+.dataTables_empty,
+td.dataTables_empty {
+    padding: 1.25rem !important;
+    text-align: center;
+}
+
+.btn-primary,
+.btn-outline-primary:hover,
+.page-item.active .page-link {
+    box-shadow: 0 10px 22px rgb(31 90 153 / 18%);
+}
+
+.btn-primary:focus,
+.btn-outline-primary:focus,
+.form-control:focus,
+.form-select:focus {
+    box-shadow: 0 0 0 0.2rem rgb(31 90 153 / 14%) !important;
+}
+
 .debug-panel,
 .debug-toolbar {
     border-color: var(--modern-border);
@@ -1704,6 +1841,23 @@ footer {
         align-items: flex-start;
         flex-direction: column;
         padding: 1rem;
+    }
+
+    .itil-object .itil-left-side,
+    .itil-object .itil-right-side {
+        border-radius: var(--modern-radius);
+    }
+
+    .itil-footer {
+        position: static !important;
+    }
+
+    .dashboard .grid-stack,
+    .dashboard .grid-stack-item {
+        height: auto !important;
+        position: relative !important;
+        transform: none !important;
+        width: 100% !important;
     }
 }
 

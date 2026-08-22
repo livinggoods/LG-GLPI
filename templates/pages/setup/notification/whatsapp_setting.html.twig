@@ -94,4 +94,15 @@
             <span>{{ __('Keep access tokens private and rotate them regularly from your WhatsApp provider dashboard.') }}</span>
         </div>
     </div>
+
+    <div class="col-12">
+        <section class="afyadesk-notification-checklist" aria-label="{{ __('WhatsApp setup checklist') }}">
+            <h3>{{ __('Before going live') }}</h3>
+            <ul>
+                <li>{{ __('Confirm the API base URL and phone number ID are from the same WhatsApp Business account.') }}</li>
+                <li>{{ __('Send a test notification to verify the access token and recipient format.') }}</li>
+                <li>{{ __('Use approved templates for business-initiated messages and keep the language code aligned.') }}</li>
+            </ul>
+        </section>
+    </div>
 {% endblock %}

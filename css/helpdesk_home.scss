@@ -274,7 +274,7 @@ header {
                 display: flex;
                 gap: 1.5rem;
                 min-height: 5.75rem;
-                overflow: hidden;
+                overflow: visible;
             }
 
             .modern-app-brand {
@@ -312,6 +312,10 @@ header {
             .ms-md-4 {
                 flex: 0 0 auto;
                 margin-left: 0.75rem !important;
+            }
+
+            .dropdown-menu {
+                z-index: 1055;
             }
         }
     }

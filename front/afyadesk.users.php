@@ -21,6 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $display_name = trim((string) ($_POST['display_name'] ?? ''));
     $profiles_id = (int) ($_POST['profiles_id'] ?? 0);
     $entities_id = (int) ($_POST['entities_id'] ?? 0);
+    $is_recursive = (int) ($_POST['_is_recursive'] ?? 1) === 1 ? 1 : 0;
     $password = (string) ($_POST['password'] ?? '');
 
     if ($login === '' || $profiles_id <= 0 || $entities_id <= 0) {
@@ -36,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'is_active'     => 1,
             '_profiles_id'  => $profiles_id,
             '_entities_id'  => $entities_id,
-            '_is_recursive' => 1,
+            '_is_recursive' => $is_recursive,
         ];
 
         if ($password !== '') {
@@ -115,7 +116,7 @@ foreach ($entity_iterator as $row) {
 
 $user_access = [];
 $profile_user_iterator = $DB->request([
-    'SELECT' => ['users_id', 'profiles_id', 'entities_id'],
+    'SELECT' => ['users_id', 'profiles_id', 'entities_id', 'is_recursive'],
     'FROM'   => Profile_User::getTable(),
 ]);
 foreach ($profile_user_iterator as $row) {
@@ -124,6 +125,7 @@ foreach ($profile_user_iterator as $row) {
     $entities_id = (int) $row['entities_id'];
     $user_access[$users_id]['profiles'][$profiles_id] = $profile_lookup[$profiles_id] ?? null;
     $user_access[$users_id]['service_areas'][$entities_id] = $entity_lookup[$entities_id] ?? null;
+    $user_access[$users_id]['recursive_scopes'][] = (int) $row['is_recursive'];
 }
 
 $all_users = [];
@@ -136,6 +138,7 @@ $user_iterator = $DB->request([
 foreach ($user_iterator as $row) {
     $profiles_list = array_values(array_filter($user_access[(int) $row['id']]['profiles'] ?? []));
     $areas_list = array_values(array_filter($user_access[(int) $row['id']]['service_areas'] ?? []));
+    $recursive_scopes = $user_access[(int) $row['id']]['recursive_scopes'] ?? [];
     $display_name = trim($row['firstname'] . ' ' . $row['realname']);
 
     $haystack = Toolbox::strtolower(implode(' ', [
@@ -154,6 +157,7 @@ foreach ($user_iterator as $row) {
         'name'          => $display_name,
         'profiles'      => $profiles_list,
         'service_areas' => array_map(static fn($area) => preg_replace('/^Root entity > /', '', $area), $areas_list),
+        'recursive'     => in_array(1, $recursive_scopes, true),
         'auth'          => ((int) $row['authtype']) === Auth::DB_GLPI ? __('Password') : __('External'),
     ];
 }

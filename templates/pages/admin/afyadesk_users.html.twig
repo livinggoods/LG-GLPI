@@ -556,7 +556,8 @@
     }
 
     .afyadesk-users-form-grid > .afyadesk-field-main,
-    .afyadesk-users-form-grid > .afyadesk-password-field {
+    .afyadesk-users-form-grid > .afyadesk-password-field,
+    .afyadesk-users-form-grid > .afyadesk-recursive-field {
         grid-column: span 3 !important;
     }
 
@@ -578,7 +579,7 @@
     }
 
     .afyadesk-managed-row {
-        grid-template-columns: minmax(12rem, 1.3fr) minmax(8rem, 0.8fr) minmax(8rem, 0.7fr) minmax(14rem, 1.5fr) minmax(5rem, 0.4fr) minmax(5rem, 0.4fr);
+        grid-template-columns: minmax(12rem, 1.3fr) minmax(8rem, 0.8fr) minmax(8rem, 0.7fr) minmax(14rem, 1.35fr) minmax(6rem, 0.55fr) minmax(5rem, 0.4fr) minmax(5rem, 0.4fr);
         min-height: 3.65rem;
         padding-inline: 1rem;
     }
@@ -745,6 +746,14 @@
                         </label>
                         <small>{{ __('Choose the lowest service area this user should manage. Lower-level access is included by default.') }}</small>
                     </div>
+                    <label class="afyadesk-recursive-field">
+                        <span>{{ __('Include lower levels') }}</span>
+                        <select name="_is_recursive" required>
+                            <option value="1" selected>{{ __('Yes') }}</option>
+                            <option value="0">{{ __('No') }}</option>
+                        </select>
+                        <small>{{ __('Yes allows access below the selected service area. No limits access to only the selected service area.') }}</small>
+                    </label>
                     <label class="afyadesk-password-field">
                         <span>{{ __('Password (for non-SSO users)') }}</span>
                         <input type="password" name="password" placeholder="Leave empty for setup email">
@@ -770,6 +779,7 @@
                         <span>{{ __('Name') }}</span>
                         <span>{{ __('Access') }}</span>
                         <span>{{ __('Entities') }}</span>
+                        <span>{{ __('Lower levels') }}</span>
                         <span>{{ __('Auth') }}</span>
                         <span></span>
                     </div>
@@ -791,6 +801,7 @@
                                     <span class="text-muted">-</span>
                                 {% endfor %}
                             </span>
+                            <span>{{ user.recursive ? __('Yes') : __('No') }}</span>
                             <span>{{ user.auth }}</span>
                             <span class="afyadesk-row-actions">
                                 <a href="{{ path('/front/user.form.php?id=' ~ user.id) }}">{{ __('Edit') }}</a>

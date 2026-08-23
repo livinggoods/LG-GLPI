@@ -614,10 +614,10 @@
         <div class="afyadesk-users-brand">
             <img src="{{ path('/pics/logos/livinggoods-logo-white.png') }}" alt="LivingGoods">
             <h1>{{ __('User Management') }}</h1>
-            <span>{{ __('Delegated Access') }}</span>
+            <span>{{ __('Hello') }} {{ logged_user_name }}</span>
         </div>
         <div class="afyadesk-users-nav">
-            <a href="{{ path('/front/central.php') }}">{{ __('Dashboard') }}</a>
+            <a href="{{ path('/front/central.php') }}">{{ __('AfyaDesk Menu') }}</a>
             <a href="{{ path('/front/logout.php') }}">{{ __('Sign Out') }}</a>
         </div>
     </section>

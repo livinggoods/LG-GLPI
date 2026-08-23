@@ -163,6 +163,13 @@ $pages = max(1, (int) ceil($total / $limit));
 $page = min($page, $pages);
 $offset = ($page - 1) * $limit;
 $users = array_slice($all_users, $offset, $limit);
+$logged_user_name = trim((string) ($_SESSION['glpifriendlyname'] ?? ''));
+if ($logged_user_name === '') {
+    $logged_user_name = trim((string) (($_SESSION['glpifirstname'] ?? '') . ' ' . ($_SESSION['glpirealname'] ?? '')));
+}
+if ($logged_user_name === '') {
+    $logged_user_name = (string) ($_SESSION['glpiname'] ?? __('User'));
+}
 
 Html::nullHeader(__('AfyaDesk user management'));
 TemplateRenderer::getInstance()->display('pages/admin/afyadesk_users.html.twig', [
@@ -175,5 +182,6 @@ TemplateRenderer::getInstance()->display('pages/admin/afyadesk_users.html.twig',
     'page'     => $page,
     'pages'    => $pages,
     'total'    => $total,
+    'logged_user_name' => $logged_user_name,
 ]);
 Html::nullFooter();

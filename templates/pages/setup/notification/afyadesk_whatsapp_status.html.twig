@@ -1,0 +1,74 @@
+<div class="container-xl afyadesk-admin-tool">
+    <section class="afyadesk-tool-hero">
+        <p class="afyadesk-kicker">{{ __('WhatsApp notifications') }}</p>
+        <h1>{{ __('AfyaDesk WhatsApp status') }}</h1>
+        <p>{{ __('Review active WhatsApp templates and queued delivery attempts. Use this page before going live to confirm events are linked and messages are moving through the queue.') }}</p>
+    </section>
+
+    <section class="afyadesk-tool-card">
+        <div class="afyadesk-tool-card__header">
+            <h2>{{ __('Linked WhatsApp templates') }}</h2>
+            <a class="btn btn-outline-secondary btn-sm" href="{{ path('/front/notificationwhatsappsetting.form.php') }}">
+                <i class="ti ti-settings"></i>
+                {{ __('Configure') }}
+            </a>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>{{ __('Template') }}</th>
+                        <th>{{ __('Item type') }}</th>
+                        <th>{{ __('Event') }}</th>
+                        <th>{{ __('Notification') }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for template in templates %}
+                        <tr>
+                            <td>{{ template.name }}</td>
+                            <td>{{ template.itemtype }}</td>
+                            <td><span class="badge bg-blue-lt">{{ template.event }}</span></td>
+                            <td>{{ template.notification_name }}</td>
+                        </tr>
+                    {% else %}
+                        <tr><td colspan="4" class="text-muted">{{ __('No WhatsApp templates are linked yet.') }}</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="afyadesk-tool-card">
+        <div class="afyadesk-tool-card__header">
+            <h2>{{ __('Queued WhatsApp messages') }}</h2>
+            <span class="badge bg-azure-lt">{{ queued|length }} {{ __('shown') }}</span>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>{{ __('Recipient') }}</th>
+                        <th>{{ __('Subject') }}</th>
+                        <th>{{ __('Event') }}</th>
+                        <th>{{ __('Tries') }}</th>
+                        <th>{{ __('Send time') }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in queued %}
+                        <tr>
+                            <td>{{ row.recipient }}</td>
+                            <td>{{ row.name }}</td>
+                            <td><span class="badge bg-blue-lt">{{ row.event }}</span></td>
+                            <td>{{ row.sent_try }}</td>
+                            <td>{{ row.send_time ?: row.create_time }}</td>
+                        </tr>
+                    {% else %}
+                        <tr><td colspan="5" class="text-muted">{{ __('No WhatsApp messages are currently queued.') }}</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>

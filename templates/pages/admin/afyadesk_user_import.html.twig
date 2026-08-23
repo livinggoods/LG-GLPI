@@ -1,0 +1,34 @@
+<div class="container-xl afyadesk-admin-tool">
+    <section class="afyadesk-tool-hero">
+        <p class="afyadesk-kicker">{{ __('User management') }}</p>
+        <h1>{{ __('Bulk import AfyaDesk users') }}</h1>
+        <p>{{ __('Upload a CSV with login, email, names, access level, service area, and lower-level access. The importer creates missing local users and adds service-area authorizations.') }}</p>
+    </section>
+
+    {% if error %}
+        <div class="alert alert-danger">{{ error }}</div>
+    {% endif %}
+    {% if result %}
+        <div class="alert alert-success">{{ result }}</div>
+    {% endif %}
+
+    <section class="afyadesk-tool-card">
+        <form method="post" enctype="multipart/form-data" data-submit-once>
+            <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+            <label class="afyadesk-upload-field">
+                <span>{{ __('CSV file') }}</span>
+                <input type="file" name="csv_file" accept=".csv,text/csv" required>
+            </label>
+            <div class="afyadesk-tool-actions">
+                <a class="btn btn-outline-secondary" href="{{ path('/front/afyadesk.user_import_template.php') }}">
+                    <i class="ti ti-download"></i>
+                    {{ __('Download CSV template') }}
+                </a>
+                <button class="btn btn-primary" type="submit">
+                    <i class="ti ti-upload"></i>
+                    {{ __('Import users') }}
+                </button>
+            </div>
+        </form>
+    </section>
+</div>

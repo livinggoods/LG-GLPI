@@ -211,6 +211,20 @@
                                         <span><i class="ti ti-eye-check" aria-hidden="true"></i>{{ __('Preview access') }}</span>
                                         <span><i class="ti ti-file-spreadsheet" aria-hidden="true"></i>{{ __('CSV bulk import ready') }}</span>
                                     </div>
+                                    <div class="afyadesk-tool-actions afyadesk-access-actions">
+                                        <a class="btn btn-primary btn-sm" href="{{ path('/front/afyadesk.users.php') }}">
+                                            <i class="ti ti-users"></i>
+                                            {{ __('Open AfyaDesk user management') }}
+                                        </a>
+                                        <a class="btn btn-outline-secondary btn-sm" href="{{ path('/front/afyadesk.user_import.php') }}">
+                                            <i class="ti ti-file-spreadsheet"></i>
+                                            {{ __('Bulk import users') }}
+                                        </a>
+                                        <a class="btn btn-outline-secondary btn-sm" href="{{ path('/front/afyadesk.user_import_template.php') }}">
+                                            <i class="ti ti-download"></i>
+                                            {{ __('CSV template') }}
+                                        </a>
+                                    </div>
                                     <div class="row g-3 afyadesk-access-scope__grid">
                                         {{ fields.dropdownField('Profile', '_profiles_id', call('Profile::getDefault'), __('Access level'), {
                                             is_horizontal: false,

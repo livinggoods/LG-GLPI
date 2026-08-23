@@ -107,6 +107,12 @@
                 <li>{{ __('Use approved templates for business-initiated messages and keep the language code aligned.') }}</li>
                 <li>{{ __('Review notification logs after every failed test before enabling production templates.') }}</li>
             </ul>
+            <div class="afyadesk-tool-actions mt-3">
+                <a class="btn btn-outline-secondary btn-sm" href="{{ path('/front/afyadesk.whatsapp_status.php') }}">
+                    <i class="ti ti-list-check"></i>
+                    {{ __('View WhatsApp status') }}
+                </a>
+            </div>
         </section>
     </div>
 {% endblock %}

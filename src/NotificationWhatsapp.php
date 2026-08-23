@@ -190,6 +190,12 @@ class NotificationWhatsapp implements NotificationInterface
         $template_name = trim((string) ($CFG_GLPI['whatsapp_template_name'] ?? ''));
         $template_language = trim((string) ($CFG_GLPI['whatsapp_template_language'] ?? 'en')) ?: 'en';
 
+        $api_url = rtrim((string) (getenv('AFYADESK_WHATSAPP_API_URL') ?: $api_url), '/');
+        $phone_number_id = trim((string) (getenv('AFYADESK_WHATSAPP_PHONE_NUMBER_ID') ?: $phone_number_id));
+        $access_token = trim((string) (getenv('AFYADESK_WHATSAPP_ACCESS_TOKEN') ?: $access_token));
+        $template_name = trim((string) (getenv('AFYADESK_WHATSAPP_TEMPLATE_NAME') ?: $template_name));
+        $template_language = trim((string) (getenv('AFYADESK_WHATSAPP_TEMPLATE_LANGUAGE') ?: $template_language)) ?: 'en';
+
         if ($api_url === '' || $phone_number_id === '' || $access_token === '') {
             return [
                 'success' => false,

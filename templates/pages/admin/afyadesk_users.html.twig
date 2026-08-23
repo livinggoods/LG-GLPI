@@ -1,0 +1,135 @@
+<script>
+    document.body.classList.add('afyadesk-users-page');
+</script>
+<div class="afyadesk-users-shell">
+    <section class="afyadesk-users-topbar">
+        <div class="afyadesk-users-brand">
+            <img src="{{ path('/pics/logos/livinggoods-logo-white.png') }}" alt="LivingGoods">
+            <h1>{{ __('User Management') }}</h1>
+            <span>{{ __('Delegated Access') }}</span>
+        </div>
+        <div class="afyadesk-users-nav">
+            <a href="{{ path('/front/central.php') }}">{{ __('Dashboard') }}</a>
+            <a href="{{ path('/front/logout.php') }}">{{ __('Sign Out') }}</a>
+        </div>
+    </section>
+
+    <main class="afyadesk-users-main">
+        {% if error %}
+            <div class="alert alert-danger">{{ error }}</div>
+        {% endif %}
+        {% if message %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endif %}
+
+        <section class="afyadesk-users-card">
+            <h2>{{ __('Add User') }}</h2>
+            <form method="post" data-submit-once>
+                <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                <div class="afyadesk-users-form-grid">
+                    <label>
+                        <span>{{ __('Email / Username') }}</span>
+                        <input type="text" name="login" placeholder="user@example.com" required>
+                        <small>{{ __('Living Goods staff (@livinggoods.org) can be managed here with the correct access level.') }}</small>
+                    </label>
+                    <label>
+                        <span>{{ __('Display Name') }}</span>
+                        <input type="text" name="display_name" placeholder="John Doe">
+                    </label>
+                    <label>
+                        <span>{{ __('Access Level') }}</span>
+                        <select name="profiles_id" required>
+                            <option value="">{{ __('-- Select access level --') }}</option>
+                            {% for profile in profiles %}
+                                <option value="{{ profile.id }}">{{ profile.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </label>
+                    <label>
+                        <span>{{ __('Entities') }}</span>
+                        <select name="entities_id" required>
+                            <option value="">{{ __('-- Select entity --') }}</option>
+                            {% for entity in entities %}
+                                <option value="{{ entity.id }}">{{ entity.completename|replace({'Root entity > ': ''}) }}</option>
+                            {% endfor %}
+                        </select>
+                        <small>{{ __('Select from the dropdown. Lower-level access is included by default.') }}</small>
+                    </label>
+                    <label>
+                        <span>{{ __('Password (for non-SSO users)') }}</span>
+                        <input type="password" name="password" placeholder="Leave empty for setup email">
+                    </label>
+                </div>
+                <div class="afyadesk-users-actions">
+                    <a class="btn btn-outline-secondary" href="{{ path('/front/afyadesk.user_import.php') }}">
+                        <i class="ti ti-file-spreadsheet"></i>
+                        {{ __('Bulk import') }}
+                    </a>
+                    <button class="btn btn-primary" type="submit">{{ __('Add User') }}</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="afyadesk-users-card">
+            <div class="afyadesk-managed-header">
+                <h2>{{ __('Managed Users') }} <span>({{ total }})</span></h2>
+            </div>
+            <form method="get" class="afyadesk-managed-search">
+                <input type="search" name="q" value="{{ query }}" placeholder="{{ __('Search by email, name, or CU...') }}">
+            </form>
+            <div class="afyadesk-managed-table">
+                <div class="afyadesk-managed-row afyadesk-managed-head">
+                    <span>{{ __('Email / Username') }}</span>
+                    <span>{{ __('Name') }}</span>
+                    <span>{{ __('Access') }}</span>
+                    <span>{{ __('Entities') }}</span>
+                    <span>{{ __('Auth') }}</span>
+                    <span></span>
+                </div>
+                {% for user in users %}
+                    <div class="afyadesk-managed-row">
+                        <strong>{{ user.login }}</strong>
+                        <span>{{ user.name ?: '-' }}</span>
+                        <span class="afyadesk-chip-stack">
+                            {% for profile in user.profiles %}
+                                <span class="afyadesk-access-chip">{{ profile|replace({'AfyaDesk ': '', 'Community Unit User': 'CU', 'County Admin': 'County', 'Sub County Admin': 'Subcounty', 'Ward Supervisor': 'Ward'}) }}</span>
+                            {% else %}
+                                <span class="text-muted">-</span>
+                            {% endfor %}
+                        </span>
+                        <span class="afyadesk-chip-stack">
+                            {% for area in user.service_areas %}
+                                <span class="afyadesk-entity-chip">{{ area|split(' > ')|last }}</span>
+                            {% else %}
+                                <span class="text-muted">-</span>
+                            {% endfor %}
+                        </span>
+                        <span>{{ user.auth }}</span>
+                        <span class="afyadesk-row-actions">
+                            <a href="{{ path('/front/user.form.php?id=' ~ user.id) }}">{{ __('Edit') }}</a>
+                            <a class="is-warning" href="{{ path('/front/user.form.php?id=' ~ user.id) }}">{{ __('Reset PW') }}</a>
+                        </span>
+                    </div>
+                {% else %}
+                    <div class="afyadesk-managed-empty">{{ __('No users found.') }}</div>
+                {% endfor %}
+            </div>
+
+            <div class="afyadesk-managed-pagination">
+                {% if page > 1 %}
+                    <a class="btn btn-outline-secondary btn-sm" href="{{ path('/front/afyadesk.users.php?page=' ~ (page - 1) ~ '&q=' ~ query|url_encode) }}">{{ __('Previous') }}</a>
+                {% else %}
+                    <button class="btn btn-outline-secondary btn-sm" disabled>{{ __('Previous') }}</button>
+                {% endif %}
+                <span>{{ __('Page') }} {{ page }} {{ __('of') }} {{ pages }} ({{ total }} {{ __('users') }})</span>
+                {% if page < pages %}
+                    <a class="btn btn-outline-secondary btn-sm" href="{{ path('/front/afyadesk.users.php?page=' ~ (page + 1) ~ '&q=' ~ query|url_encode) }}">{{ __('Next') }}</a>
+                {% else %}
+                    <button class="btn btn-outline-secondary btn-sm" disabled>{{ __('Next') }}</button>
+                {% endif %}
+            </div>
+        </section>
+
+        <p class="afyadesk-users-footnote">{{ __('Changes are logged. Contact your administrator for full access or to remove users.') }}</p>
+    </main>
+</div>

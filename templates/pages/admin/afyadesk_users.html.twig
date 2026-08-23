@@ -535,7 +535,7 @@
         border: 1px solid #dbe6f0;
         border-radius: 0.8rem;
         display: grid;
-        gap: 1rem;
+        gap: 0.9rem 1rem;
         grid-column: 1 / -1 !important;
         grid-template-columns: repeat(4, minmax(0, 1fr));
         padding: 1rem;
@@ -546,6 +546,8 @@
     }
 
     .afyadesk-service-grid small {
+        color: #7b8b9d;
+        font-size: 0.82rem;
         grid-column: 1 / -1;
     }
 
@@ -562,9 +564,17 @@
     }
 
     .afyadesk-users-actions {
+        align-items: center;
+        background: #fbfdff;
         border-top: 1px solid #e7eef5;
+        display: flex;
+        justify-content: flex-end;
         margin-inline: -1.25rem;
         padding: 1rem 1.25rem 0;
+    }
+
+    .afyadesk-users-actions .btn {
+        min-width: 9rem;
     }
 
     .afyadesk-managed-header {
@@ -718,6 +728,14 @@
                             {% endfor %}
                         </select>
                     </label>
+                    <label class="afyadesk-recursive-field">
+                        <span>{{ __('Include lower levels') }}</span>
+                        <select name="_is_recursive" required>
+                            <option value="1" selected>{{ __('Yes') }}</option>
+                            <option value="0">{{ __('No') }}</option>
+                        </select>
+                        <small>{{ __('Yes allows access below the selected service area. No limits access to only the selected service area.') }}</small>
+                    </label>
                     <input type="hidden" name="entities_id" data-afyadesk-selected-entity>
                     <div class="afyadesk-service-grid" aria-label="{{ __('Service area') }}">
                         <label class="afyadesk-service-field">
@@ -744,16 +762,8 @@
                                 <option value="">{{ __('-- Select community unit --') }}</option>
                             </select>
                         </label>
-                        <small>{{ __('Choose the lowest service area this user should manage. Lower-level access is included by default.') }}</small>
+                        <small>{{ __('Choose the lowest service area this user should manage. Use Include lower levels to decide whether child service areas are included.') }}</small>
                     </div>
-                    <label class="afyadesk-recursive-field">
-                        <span>{{ __('Include lower levels') }}</span>
-                        <select name="_is_recursive" required>
-                            <option value="1" selected>{{ __('Yes') }}</option>
-                            <option value="0">{{ __('No') }}</option>
-                        </select>
-                        <small>{{ __('Yes allows access below the selected service area. No limits access to only the selected service area.') }}</small>
-                    </label>
                     <label class="afyadesk-password-field">
                         <span>{{ __('Password (for non-SSO users)') }}</span>
                         <input type="password" name="password" placeholder="Leave empty for setup email">

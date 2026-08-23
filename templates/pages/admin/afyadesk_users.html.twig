@@ -530,6 +530,36 @@
         outline: 0;
     }
 
+    .afyadesk-service-grid {
+        background: #f8fbfe;
+        border: 1px solid #dbe6f0;
+        border-radius: 0.8rem;
+        display: grid;
+        gap: 1rem;
+        grid-column: 1 / -1 !important;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        padding: 1rem;
+    }
+
+    .afyadesk-service-grid .afyadesk-service-field {
+        grid-column: auto !important;
+    }
+
+    .afyadesk-service-grid small {
+        grid-column: 1 / -1;
+    }
+
+    .afyadesk-service-grid .afyadesk-service-field select:disabled {
+        background: #eef4f9;
+        color: #91a1b3;
+        cursor: not-allowed;
+    }
+
+    .afyadesk-users-form-grid > .afyadesk-field-main,
+    .afyadesk-users-form-grid > .afyadesk-password-field {
+        grid-column: span 3 !important;
+    }
+
     .afyadesk-users-actions {
         border-top: 1px solid #e7eef5;
         margin-inline: -1.25rem;
@@ -601,6 +631,10 @@
             grid-column: auto;
         }
 
+        .afyadesk-service-grid {
+            grid-template-columns: 1fr;
+        }
+
         .afyadesk-users-actions,
         .afyadesk-card-heading,
         .afyadesk-managed-header {
@@ -666,16 +700,16 @@
             <form method="post" data-submit-once>
                 <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
                 <div class="afyadesk-users-form-grid">
-                    <label>
+                    <label class="afyadesk-field-main">
                         <span>{{ __('Email / Username') }}</span>
                         <input type="text" name="login" placeholder="user@example.com" required>
                         <small>{{ __('Living Goods staff (@livinggoods.org) can be managed here with the correct access level.') }}</small>
                     </label>
-                    <label>
+                    <label class="afyadesk-field-main">
                         <span>{{ __('Display Name') }}</span>
                         <input type="text" name="display_name" placeholder="John Doe">
                     </label>
-                    <label>
+                    <label class="afyadesk-field-main">
                         <span>{{ __('Access Level') }}</span>
                         <select name="profiles_id" required>
                             <option value="">{{ __('-- Select access level --') }}</option>
@@ -684,17 +718,35 @@
                             {% endfor %}
                         </select>
                     </label>
-                    <label>
-                        <span>{{ __('Entities') }}</span>
-                        <select name="entities_id" required>
-                            <option value="">{{ __('-- Select entity --') }}</option>
-                            {% for entity in entities %}
-                                <option value="{{ entity.id }}">{{ entity.completename|replace({'Root entity > ': ''}) }}</option>
-                            {% endfor %}
-                        </select>
-                        <small>{{ __('Select from the dropdown. Lower-level access is included by default.') }}</small>
-                    </label>
-                    <label>
+                    <input type="hidden" name="entities_id" data-afyadesk-selected-entity>
+                    <div class="afyadesk-service-grid" aria-label="{{ __('Service area') }}">
+                        <label class="afyadesk-service-field">
+                            <span>{{ __('County') }}</span>
+                            <select data-afyadesk-area-select="0" required>
+                                <option value="">{{ __('-- Select county --') }}</option>
+                            </select>
+                        </label>
+                        <label class="afyadesk-service-field">
+                            <span>{{ __('Sub County') }}</span>
+                            <select data-afyadesk-area-select="1" disabled>
+                                <option value="">{{ __('-- Select sub county --') }}</option>
+                            </select>
+                        </label>
+                        <label class="afyadesk-service-field">
+                            <span>{{ __('Ward') }}</span>
+                            <select data-afyadesk-area-select="2" disabled>
+                                <option value="">{{ __('-- Select ward --') }}</option>
+                            </select>
+                        </label>
+                        <label class="afyadesk-service-field">
+                            <span>{{ __('Community Unit') }}</span>
+                            <select data-afyadesk-area-select="3" disabled>
+                                <option value="">{{ __('-- Select community unit --') }}</option>
+                            </select>
+                        </label>
+                        <small>{{ __('Choose the lowest service area this user should manage. Lower-level access is included by default.') }}</small>
+                    </div>
+                    <label class="afyadesk-password-field">
                         <span>{{ __('Password (for non-SSO users)') }}</span>
                         <input type="password" name="password" placeholder="Leave empty for setup email">
                     </label>
@@ -770,3 +822,123 @@
         <p class="afyadesk-users-footnote">{{ __('Changes are logged. Contact your administrator for full access or to remove users.') }}</p>
     </main>
 </div>
+<script type="application/json" id="afyadesk-entities-data">[
+{% for entity in entities %}
+    {"id":{{ entity.id }},"name":{{ entity.completename|replace({'Root entity > ': ''})|json_encode|raw }}}{% if not loop.last %},{% endif %}
+{% endfor %}
+]</script>
+<script>
+    (function () {
+        const dataNode = document.getElementById('afyadesk-entities-data');
+        const selectedEntity = document.querySelector('[data-afyadesk-selected-entity]');
+        const selects = Array.from(document.querySelectorAll('[data-afyadesk-area-select]'))
+            .sort((a, b) => Number(a.dataset.afyadeskAreaSelect) - Number(b.dataset.afyadeskAreaSelect));
+
+        if (!dataNode || !selectedEntity || selects.length === 0) {
+            return;
+        }
+
+        const placeholders = [
+            '{{ __('-- Select county --')|e('js') }}',
+            '{{ __('-- Select sub county --')|e('js') }}',
+            '{{ __('-- Select ward --')|e('js') }}',
+            '{{ __('-- Select community unit --')|e('js') }}'
+        ];
+
+        let entities = [];
+        try {
+            entities = JSON.parse(dataNode.textContent || '[]')
+                .map((entity) => ({
+                    id: String(entity.id),
+                    name: String(entity.name || ''),
+                    parts: String(entity.name || '').split(' > ').map((part) => part.trim()).filter(Boolean)
+                }))
+                .filter((entity) => entity.id && entity.parts.length > 0);
+        } catch (error) {
+            entities = [];
+        }
+
+        function selectedParts(untilIndex) {
+            return selects.slice(0, untilIndex).map((select) => select.value).filter(Boolean);
+        }
+
+        function matchesPrefix(entity, prefix) {
+            return prefix.every((part, index) => entity.parts[index] === part);
+        }
+
+        function entityFor(parts) {
+            return entities.find((entity) => entity.parts.length === parts.length && matchesPrefix(entity, parts));
+        }
+
+        function addPlaceholder(select, index) {
+            const option = document.createElement('option');
+            option.value = '';
+            option.textContent = placeholders[index] || '{{ __('-- Select --')|e('js') }}';
+            select.appendChild(option);
+        }
+
+        function fillSelect(index) {
+            const select = selects[index];
+            const previousValue = select.value;
+            const prefix = selectedParts(index);
+            const values = [];
+
+            select.innerHTML = '';
+            addPlaceholder(select, index);
+
+            if (index > 0 && prefix.length < index) {
+                select.disabled = true;
+                return;
+            }
+
+            entities.forEach((entity) => {
+                const value = entity.parts[index];
+                if (value && matchesPrefix(entity, prefix) && !values.includes(value)) {
+                    values.push(value);
+                }
+            });
+
+            values.sort((a, b) => a.localeCompare(b)).forEach((value) => {
+                const option = document.createElement('option');
+                option.value = value;
+                option.textContent = value;
+                select.appendChild(option);
+            });
+
+            select.disabled = values.length === 0;
+            if (values.includes(previousValue)) {
+                select.value = previousValue;
+            }
+        }
+
+        function syncFrom(changedIndex) {
+            for (let index = changedIndex + 1; index < selects.length; index++) {
+                selects[index].value = '';
+            }
+
+            selects.forEach((select, index) => fillSelect(index));
+
+            let parts = [];
+            selects.forEach((select) => {
+                const expectedIndex = Number(select.dataset.afyadeskAreaSelect);
+                if (select.value && parts.length === expectedIndex) {
+                    parts.push(select.value);
+                }
+            });
+
+            while (parts.length > 0 && !entityFor(parts)) {
+                parts = parts.slice(0, -1);
+            }
+
+            const entity = entityFor(parts);
+            selectedEntity.value = entity ? entity.id : '';
+        }
+
+        selects.forEach((select, index) => {
+            select.addEventListener('change', () => syncFrom(index));
+        });
+
+        fillSelect(0);
+        syncFrom(0);
+    }());
+</script>

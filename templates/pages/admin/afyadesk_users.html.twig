@@ -535,7 +535,7 @@
         border-radius: 0.8rem;
         grid-column: span 3 !important;
         margin: 0;
-        padding: 0.85rem 1rem;
+        padding: 0.85rem 1rem 1rem;
     }
 
     .afyadesk-access-field legend {
@@ -547,26 +547,64 @@
         width: auto;
     }
 
-    .afyadesk-access-options {
+    .afyadesk-access-picker {
         display: grid;
-        gap: 0.55rem;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.6rem;
     }
 
-    .afyadesk-access-options label {
+    .afyadesk-access-selected {
         align-items: center;
-        background: #f8fbfe;
-        border: 1px solid #dbe6f0;
+        background: #fff;
+        border: 1px solid #cfdce8;
         border-radius: 0.55rem;
         display: flex;
+        flex-wrap: wrap;
         gap: 0.5rem;
-        grid-column: auto !important;
-        min-height: 2.45rem;
-        padding: 0.45rem 0.6rem;
+        min-height: 2.75rem;
+        padding: 0.45rem;
     }
 
-    .afyadesk-access-options input {
-        min-height: auto;
+    .afyadesk-access-placeholder {
+        color: #8392a5;
+        padding-inline: 0.4rem;
+    }
+
+    .afyadesk-access-token {
+        align-items: center;
+        background: #e7f4ff;
+        border: 1px solid #cde8fb;
+        border-radius: 999px;
+        color: #075983;
+        display: inline-flex;
+        font-size: 0.86rem;
+        font-weight: 800;
+        gap: 0.35rem;
+        line-height: 1;
+        padding: 0.35rem 0.45rem 0.35rem 0.65rem;
+    }
+
+    .afyadesk-access-token button {
+        align-items: center;
+        background: transparent;
+        border: 0;
+        border-radius: 999px;
+        color: #5c8fb4;
+        display: inline-flex;
+        font: inherit;
+        height: 1.15rem;
+        justify-content: center;
+        line-height: 1;
+        padding: 0;
+        width: 1.15rem;
+    }
+
+    .afyadesk-access-token button:hover {
+        background: #d6ecfb;
+        color: #075983;
+    }
+
+    .afyadesk-access-picker select {
+        width: 100%;
     }
 
     .afyadesk-access-field small {
@@ -696,10 +734,6 @@
             grid-column: auto !important;
         }
 
-        .afyadesk-access-options {
-            grid-template-columns: 1fr;
-        }
-
         .afyadesk-users-actions,
         .afyadesk-card-heading,
         .afyadesk-managed-header {
@@ -775,12 +809,18 @@
                     </label>
                     <fieldset class="afyadesk-access-field">
                         <legend>{{ __('Access Levels') }}</legend>
-                        <div class="afyadesk-access-options">
+                        <div class="afyadesk-access-picker" data-afyadesk-access-picker>
+                            <div class="afyadesk-access-selected" data-afyadesk-access-selected>
+                                <span class="afyadesk-access-placeholder">{{ __('No access level selected') }}</span>
+                            </div>
+                            <select data-afyadesk-access-select>
+                                <option value="">{{ __('-- Select access level --') }}</option>
+                                {% for profile in profiles %}
+                                    <option value="{{ profile.id }}">{{ profile.name }}</option>
+                                {% endfor %}
+                            </select>
                             {% for profile in profiles %}
-                                <label>
-                                    <input type="checkbox" name="profiles_id[]" value="{{ profile.id }}">
-                                    <span>{{ profile.name }}</span>
-                                </label>
+                                <input type="checkbox" name="profiles_id[]" value="{{ profile.id }}" data-afyadesk-access-input hidden>
                             {% endfor %}
                         </div>
                         <small>{{ __('Select one or more access levels for this user.') }}</small>
@@ -904,6 +944,69 @@
     {"id":{{ entity.id }},"name":{{ entity.completename|replace({'Root entity > ': ''})|json_encode|raw }}}{% if not loop.last %},{% endif %}
 {% endfor %}
 ]</script>
+<script>
+    (function () {
+        const picker = document.querySelector('[data-afyadesk-access-picker]');
+        if (!picker) {
+            return;
+        }
+
+        const selectedBox = picker.querySelector('[data-afyadesk-access-selected]');
+        const select = picker.querySelector('[data-afyadesk-access-select]');
+        const inputs = Array.from(picker.querySelectorAll('[data-afyadesk-access-input]'));
+
+        function selectedInputs() {
+            return inputs.filter((input) => input.checked);
+        }
+
+        function render() {
+            selectedBox.innerHTML = '';
+            const selected = selectedInputs();
+
+            if (selected.length === 0) {
+                const placeholder = document.createElement('span');
+                placeholder.className = 'afyadesk-access-placeholder';
+                placeholder.textContent = '{{ __('No access level selected')|e('js') }}';
+                selectedBox.appendChild(placeholder);
+            }
+
+            selected.forEach((input) => {
+                const option = select.querySelector(`option[value="${CSS.escape(input.value)}"]`);
+                const token = document.createElement('span');
+                const remove = document.createElement('button');
+
+                token.className = 'afyadesk-access-token';
+                token.textContent = option ? option.textContent : input.value;
+                remove.type = 'button';
+                remove.setAttribute('aria-label', '{{ __('Remove access level')|e('js') }}');
+                remove.textContent = 'x';
+                remove.addEventListener('click', () => {
+                    input.checked = false;
+                    render();
+                });
+
+                token.appendChild(remove);
+                selectedBox.appendChild(token);
+            });
+
+            Array.from(select.options).forEach((option) => {
+                option.disabled = option.value !== '' && inputs.some((input) => input.value === option.value && input.checked);
+            });
+            select.value = '';
+            select.setCustomValidity(selected.length > 0 ? '' : '{{ __('Select at least one access level.')|e('js') }}');
+        }
+
+        select.addEventListener('change', () => {
+            const input = inputs.find((candidate) => candidate.value === select.value);
+            if (input) {
+                input.checked = true;
+            }
+            render();
+        });
+
+        render();
+    }());
+</script>
 <script>
     (function () {
         const dataNode = document.getElementById('afyadesk-entities-data');

@@ -19,13 +19,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $login = trim((string) ($_POST['login'] ?? ''));
     $display_name = trim((string) ($_POST['display_name'] ?? ''));
-    $profiles_id = (int) ($_POST['profiles_id'] ?? 0);
+    $submitted_profiles = $_POST['profiles_id'] ?? [];
+    if (!is_array($submitted_profiles)) {
+        $submitted_profiles = [$submitted_profiles];
+    }
+    $profiles_ids = array_values(array_unique(array_filter(
+        array_map('intval', $submitted_profiles),
+        static fn($profiles_id) => $profiles_id > 0
+    )));
     $entities_id = (int) ($_POST['entities_id'] ?? 0);
     $is_recursive = (int) ($_POST['_is_recursive'] ?? 1) === 1 ? 1 : 0;
     $password = (string) ($_POST['password'] ?? '');
 
-    if ($login === '' || $profiles_id <= 0 || $entities_id <= 0) {
-        $error = __('Email / Username, access level, and service area are required.');
+    if ($login === '' || count($profiles_ids) === 0 || $entities_id <= 0) {
+        $error = __('Email / Username, at least one access level, and service area are required.');
     } else {
         $parts = preg_split('/\s+/', $display_name, 2) ?: [];
         $user = new User();
@@ -35,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'realname'      => $parts[1] ?? '',
             'authtype'      => Auth::DB_GLPI,
             'is_active'     => 1,
-            '_profiles_id'  => $profiles_id,
+            '_profiles_id'  => $profiles_ids[0],
             '_entities_id'  => $entities_id,
             '_is_recursive' => $is_recursive,
         ];
@@ -49,6 +56,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $users_id = $user->add($input);
         if ($users_id) {
+            foreach (array_slice($profiles_ids, 1) as $profiles_id) {
+                $profile_user = new Profile_User();
+                $profile_user->add([
+                    'users_id'      => $users_id,
+                    'profiles_id'   => $profiles_id,
+                    'entities_id'   => $entities_id,
+                    'is_recursive'  => $is_recursive,
+                    'is_dynamic'    => 0,
+                ]);
+            }
+
             if (filter_var($login, FILTER_VALIDATE_EMAIL)) {
                 $email = new UserEmail();
                 $email->add([

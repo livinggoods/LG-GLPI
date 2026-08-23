@@ -530,6 +530,52 @@
         outline: 0;
     }
 
+    .afyadesk-access-field {
+        border: 1px solid #dbe6f0;
+        border-radius: 0.8rem;
+        grid-column: span 3 !important;
+        margin: 0;
+        padding: 0.85rem 1rem;
+    }
+
+    .afyadesk-access-field legend {
+        color: #3f4d5e;
+        float: none;
+        font-size: 0.86rem;
+        font-weight: 800;
+        margin: 0 0 0.65rem;
+        width: auto;
+    }
+
+    .afyadesk-access-options {
+        display: grid;
+        gap: 0.55rem;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .afyadesk-access-options label {
+        align-items: center;
+        background: #f8fbfe;
+        border: 1px solid #dbe6f0;
+        border-radius: 0.55rem;
+        display: flex;
+        gap: 0.5rem;
+        grid-column: auto !important;
+        min-height: 2.45rem;
+        padding: 0.45rem 0.6rem;
+    }
+
+    .afyadesk-access-options input {
+        min-height: auto;
+    }
+
+    .afyadesk-access-field small {
+        color: #7b8b9d;
+        display: block;
+        font-size: 0.82rem;
+        margin-top: 0.65rem;
+    }
+
     .afyadesk-service-grid {
         background: #f8fbfe;
         border: 1px solid #dbe6f0;
@@ -646,6 +692,14 @@
             grid-template-columns: 1fr;
         }
 
+        .afyadesk-access-field {
+            grid-column: auto !important;
+        }
+
+        .afyadesk-access-options {
+            grid-template-columns: 1fr;
+        }
+
         .afyadesk-users-actions,
         .afyadesk-card-heading,
         .afyadesk-managed-header {
@@ -719,15 +773,18 @@
                         <span>{{ __('Display Name') }}</span>
                         <input type="text" name="display_name" placeholder="John Doe">
                     </label>
-                    <label class="afyadesk-field-main">
-                        <span>{{ __('Access Level') }}</span>
-                        <select name="profiles_id" required>
-                            <option value="">{{ __('-- Select access level --') }}</option>
+                    <fieldset class="afyadesk-access-field">
+                        <legend>{{ __('Access Levels') }}</legend>
+                        <div class="afyadesk-access-options">
                             {% for profile in profiles %}
-                                <option value="{{ profile.id }}">{{ profile.name }}</option>
+                                <label>
+                                    <input type="checkbox" name="profiles_id[]" value="{{ profile.id }}">
+                                    <span>{{ profile.name }}</span>
+                                </label>
                             {% endfor %}
-                        </select>
-                    </label>
+                        </div>
+                        <small>{{ __('Select one or more access levels for this user.') }}</small>
+                    </fieldset>
                     <label class="afyadesk-recursive-field">
                         <span>{{ __('Include lower levels') }}</span>
                         <select name="_is_recursive" required>

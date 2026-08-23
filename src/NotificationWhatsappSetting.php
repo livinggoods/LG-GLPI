@@ -37,6 +37,34 @@ use Glpi\Application\View\TemplateRenderer;
 
 class NotificationWhatsappSetting extends NotificationSetting
 {
+    public static function ensureDefaultConfiguration(): void
+    {
+        global $CFG_GLPI;
+
+        $defaults = [
+            'notifications_whatsapp'           => '0',
+            'whatsapp_api_url'                 => 'https://graph.facebook.com/v20.0',
+            'whatsapp_phone_number_id'         => '',
+            'whatsapp_access_token'            => '',
+            'whatsapp_template_name'           => '',
+            'whatsapp_template_language'       => 'en',
+            'whatsapp_default_country_code'    => '',
+            'whatsapp_admin_recipient'         => '',
+        ];
+
+        $missing = [];
+        foreach ($defaults as $name => $value) {
+            if (!array_key_exists($name, $CFG_GLPI)) {
+                $missing[$name] = $value;
+            }
+        }
+
+        if ($missing !== []) {
+            Config::setConfigurationValues('core', $missing);
+            $CFG_GLPI = array_replace($CFG_GLPI, $missing);
+        }
+    }
+
     #[Override]
     public static function getTypeName($nb = 0)
     {
@@ -56,6 +84,8 @@ class NotificationWhatsappSetting extends NotificationSetting
     public function showFormConfig()
     {
         global $CFG_GLPI;
+
+        self::ensureDefaultConfiguration();
 
         $glpi_encryption_key = new GLPIKey();
         if ($glpi_encryption_key->hasReadErrors()) {

@@ -182,6 +182,8 @@ class NotificationWhatsapp implements NotificationInterface
     {
         global $CFG_GLPI;
 
+        NotificationWhatsappSetting::ensureDefaultConfiguration();
+
         $api_url = rtrim((string) ($CFG_GLPI['whatsapp_api_url'] ?? ''), '/');
         $phone_number_id = trim((string) ($CFG_GLPI['whatsapp_phone_number_id'] ?? ''));
         $access_token = (string) (new GLPIKey())->decrypt($CFG_GLPI['whatsapp_access_token'] ?? '');

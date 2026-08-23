@@ -1278,8 +1278,20 @@ body.central .search_page .search-card table.search-results > thead > tr > th {
     z-index: auto !important;
 }
 
-body.central .search_page .search-results tbody tr:first-child td {
-    padding-top: 0.82rem;
+body.central .search_page table.search-results > tbody > tr:first-child > td,
+body.central .search_page .search-card table.search-results > tbody > tr:first-child > td {
+    padding-top: 1.55rem !important;
+}
+
+body.central .search_page table.search-results > tbody > tr:first-child .avatar,
+body.central .search_page .search-card table.search-results > tbody > tr:first-child .avatar {
+    margin-top: 0.2rem;
+}
+
+body.central .search_page table.search-results > tbody > tr > td,
+body.central .search_page .search-card table.search-results > tbody > tr > td {
+    position: relative;
+    z-index: 0;
 }
 
 .table,
@@ -1331,6 +1343,16 @@ body.central .search_page .search-results tbody tr:first-child td {
     vertical-align: middle;
     width: 3rem;
     z-index: auto;
+}
+
+body.central .search_page td .avatar {
+    height: 2.8rem;
+    max-height: 2.8rem;
+    width: 2.8rem;
+}
+
+.search_page .table-responsive-lg {
+    border-radius: var(--modern-radius);
 }
 
 .table thead th:first-child,
@@ -1660,6 +1682,11 @@ legend {
     font-weight: 650;
     margin: 0;
     padding-left: 1.15rem;
+}
+
+.notification-whatsappsetting .generic-show-form .card,
+.notificationwhatsappsetting .generic-show-form .card {
+    max-width: 54rem;
 }
 
 .dashboard .grid-stack-item-content,

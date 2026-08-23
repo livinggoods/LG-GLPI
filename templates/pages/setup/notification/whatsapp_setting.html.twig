@@ -43,24 +43,27 @@
                 <p class="afyadesk-kicker">{{ __('WhatsApp notifications') }}</p>
                 <h2>{{ __('Configure WhatsApp delivery') }}</h2>
                 <p>
-                    {{ __('Connect Afyadesk to your WhatsApp provider, then use the test button to confirm messages can be delivered before enabling templates in production.') }}
+                    {{ __('Connect AfyaDesk to your WhatsApp provider, then use the test button to confirm messages can be delivered before enabling templates in production.') }}
                 </p>
             </div>
         </section>
     </div>
 
     {{ fields.textField('whatsapp_api_url', config('whatsapp_api_url'), __('WhatsApp API base URL'), {
-        helper: __('For Meta Cloud API, use the Graph API base URL.'),
+        helper: __('For Meta WhatsApp Cloud API, use the Graph API base URL that matches your app version.'),
         additional_attributes: {
             placeholder: 'https://graph.facebook.com/v20.0'
         }
     }) }}
 
-    {{ fields.textField('whatsapp_phone_number_id', config('whatsapp_phone_number_id'), __('WhatsApp phone number ID')) }}
+    {{ fields.textField('whatsapp_phone_number_id', config('whatsapp_phone_number_id'), __('WhatsApp phone number ID'), {
+        helper: __('This is the Phone number ID from WhatsApp Manager, not the display phone number.')
+    }) }}
 
     {{ fields.passwordField('whatsapp_access_token', access_token, __('WhatsApp access token'), {
         clearable: true,
-        autocomplete: 'new-password'
+        autocomplete: 'new-password',
+        helper: __('Use a system-user access token with permission to send WhatsApp messages.')
     }) }}
 
     {{ fields.textField('whatsapp_template_name', config('whatsapp_template_name'), __('WhatsApp template name'), {
@@ -91,7 +94,7 @@
     <div class="col-12">
         <div class="afyadesk-form-note">
             <i class="ti ti-shield-check" aria-hidden="true"></i>
-            <span>{{ __('Keep access tokens private and rotate them regularly from your WhatsApp provider dashboard.') }}</span>
+            <span>{{ __('Keep access tokens private and rotate them regularly from your WhatsApp provider dashboard. Test results are written to the notification logs.') }}</span>
         </div>
     </div>
 
@@ -102,6 +105,7 @@
                 <li>{{ __('Confirm the API base URL and phone number ID are from the same WhatsApp Business account.') }}</li>
                 <li>{{ __('Send a test notification to verify the access token and recipient format.') }}</li>
                 <li>{{ __('Use approved templates for business-initiated messages and keep the language code aligned.') }}</li>
+                <li>{{ __('Review notification logs after every failed test before enabling production templates.') }}</li>
             </ul>
         </section>
     </div>

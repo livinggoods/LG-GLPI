@@ -88,7 +88,7 @@ class NotificationWhatsapp implements NotificationInterface
             ];
         }
 
-        return self::sendMessage($recipient, '[GLPI] ' . __('This is a test WhatsApp notification.'));
+        return self::sendMessage($recipient, '[AfyaDesk] ' . __('This is a test WhatsApp notification.'));
     }
 
     #[Override]
@@ -99,7 +99,7 @@ class NotificationWhatsapp implements NotificationInterface
         $data['items_id'] = $options['_items_id'];
         $data['notificationtemplates_id'] = $options['_notificationtemplates_id'];
         $data['entities_id'] = $options['_entities_id'];
-        $data['sendername'] = $options['fromname'] ?? 'GLPI';
+        $data['sendername'] = $options['fromname'] ?? 'AfyaDesk';
         $data['name'] = $options['subject'];
         $data['body_text'] = $options['content_text'];
         $data['recipient'] = self::normalizePhoneNumber((string) $options['to']);
@@ -255,11 +255,23 @@ class NotificationWhatsapp implements NotificationInterface
         $body = (string) $response->getBody();
         $payload = $body !== '' ? json_decode($body, true) : [];
 
-        return [
+        $result = [
             'success' => $response->getStatusCode() >= 200 && $response->getStatusCode() < 300,
             'error'   => $payload['error']['message'] ?? null,
             'debug'   => $payload,
         ];
+
+        Toolbox::logInFile(
+            "notification",
+            sprintf(
+                "WhatsApp API response for %s: HTTP %s%s\n",
+                $recipient,
+                $response->getStatusCode(),
+                $result['error'] !== null ? ' - ' . $result['error'] : ''
+            )
+        );
+
+        return $result;
     }
 
     private static function handleFailedSend(QueuedNotification $notification, string $error): void

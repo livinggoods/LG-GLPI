@@ -193,6 +193,18 @@
                                     <p class="afyadesk-access-scope__copy">
                                         {{ __('Choose the profile and service area this user should start with: County, Sub County, Ward, or Community Health Unit. Include lower levels only when the user should access everything below the selected area.') }}
                                     </p>
+                                    <div class="afyadesk-service-hierarchy" aria-label="{{ __('Service area hierarchy') }}">
+                                        <span>{{ __('County') }}</span>
+                                        <i class="ti ti-chevron-right" aria-hidden="true"></i>
+                                        <span>{{ __('Sub County') }}</span>
+                                        <i class="ti ti-chevron-right" aria-hidden="true"></i>
+                                        <span>{{ __('Ward') }}</span>
+                                        <i class="ti ti-chevron-right" aria-hidden="true"></i>
+                                        <span>{{ __('Community Health Unit') }}</span>
+                                    </div>
+                                    <p class="afyadesk-access-scope__example">
+                                        {{ __('Example: Kisumu County > Kadibo Sub County > Kobura Ward > Okana Community Health Unit') }}
+                                    </p>
                                     <div class="row g-3 afyadesk-access-scope__grid">
                                         {{ fields.dropdownField('Profile', '_profiles_id', call('Profile::getDefault'), 'Profile'|itemtype_name(1), {
                                             is_horizontal: false,
@@ -226,6 +238,15 @@
                                         <p class="afyadesk-access-scope__copy">
                                             {{ __('Set where this user lands after sign-in and which profile is used by default. Additional County, Sub County, Ward, and Community Health Unit access is managed in the Authorizations tab.') }}
                                         </p>
+                                        <div class="afyadesk-service-hierarchy" aria-label="{{ __('Service area hierarchy') }}">
+                                            <span>{{ __('County') }}</span>
+                                            <i class="ti ti-chevron-right" aria-hidden="true"></i>
+                                            <span>{{ __('Sub County') }}</span>
+                                            <i class="ti ti-chevron-right" aria-hidden="true"></i>
+                                            <span>{{ __('Ward') }}</span>
+                                            <i class="ti ti-chevron-right" aria-hidden="true"></i>
+                                            <span>{{ __('Community Health Unit') }}</span>
+                                        </div>
                                         <div class="row g-3 afyadesk-access-scope__grid">
                                             {% if higher_rights or is_my_form %}
                                                 {{ fields.dropdownArrayField(

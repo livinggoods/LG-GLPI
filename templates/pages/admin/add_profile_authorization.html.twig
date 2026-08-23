@@ -59,6 +59,18 @@
                                 <p class="afyadesk-access-scope__copy">
                                     {{ __('Assign a profile and service area in one place. The hierarchy is County, Sub County, Ward, then Community Health Unit. Include lower levels only for users who should manage everything below the selected area.') }}
                                 </p>
+                                <div class="afyadesk-service-hierarchy" aria-label="{{ __('Service area hierarchy') }}">
+                                    <span>{{ __('County') }}</span>
+                                    <i class="ti ti-chevron-right" aria-hidden="true"></i>
+                                    <span>{{ __('Sub County') }}</span>
+                                    <i class="ti ti-chevron-right" aria-hidden="true"></i>
+                                    <span>{{ __('Ward') }}</span>
+                                    <i class="ti ti-chevron-right" aria-hidden="true"></i>
+                                    <span>{{ __('Community Health Unit') }}</span>
+                                </div>
+                                <p class="afyadesk-access-scope__example">
+                                    {{ __('Example: Kisumu County > Kadibo Sub County > Kabonyo/Kanyagwal Ward > Anyuro Community Health Unit') }}
+                                </p>
                                 <div class="row g-3 afyadesk-access-scope__grid">
                                     {% if source_itemtype != 'Entity' %}
                                         {{ fields.dropdownField('Entity', 'entities_id', session('glpiactive_entity'), __('Service area'), field_options|merge({

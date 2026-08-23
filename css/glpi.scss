@@ -1734,6 +1734,41 @@ legend {
     max-width: 58rem;
 }
 
+.afyadesk-service-hierarchy {
+    align-items: center;
+    background: #f7fbff;
+    border: 1px solid #cfe0f3;
+    border-radius: var(--modern-radius);
+    color: var(--modern-primary-strong);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin: 0 0 0.6rem;
+    padding: 0.65rem 0.75rem;
+}
+
+.afyadesk-service-hierarchy span {
+    background: #fff;
+    border: 1px solid #d9e7f5;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 850;
+    line-height: 1.2;
+    padding: 0.35rem 0.6rem;
+}
+
+.afyadesk-service-hierarchy i {
+    color: #7b91ad;
+    font-size: 0.95rem;
+}
+
+.afyadesk-access-scope__example {
+    color: #5b6b82;
+    font-size: 0.82rem;
+    font-weight: 650;
+    margin: 0 0 1rem;
+}
+
 .afyadesk-access-scope__grid {
     align-items: start;
 }
@@ -1804,6 +1839,15 @@ legend {
         align-items: flex-start;
         flex-direction: column;
         gap: 0.6rem;
+    }
+
+    .afyadesk-service-hierarchy {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .afyadesk-service-hierarchy i {
+        transform: rotate(90deg);
     }
 }
 

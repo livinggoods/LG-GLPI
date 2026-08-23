@@ -1684,9 +1684,127 @@ legend {
     padding-left: 1.15rem;
 }
 
+.afyadesk-access-scope {
+    background:
+        linear-gradient(135deg, rgb(31 90 153 / 8%), rgb(18 140 126 / 6%)),
+        #fff;
+    border: 1px solid var(--modern-border);
+    border-radius: var(--modern-radius-lg);
+    box-shadow: var(--modern-shadow-sm);
+    margin: 0.65rem 0 1.15rem;
+    padding: 1.25rem;
+}
+
+.afyadesk-authorization-card {
+    margin-top: 0.35rem;
+}
+
+.afyadesk-access-scope__header {
+    align-items: center;
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+    margin-bottom: 0.55rem;
+}
+
+.afyadesk-access-scope__header h3 {
+    color: var(--modern-ink);
+    font-size: 1.2rem;
+    font-weight: 900;
+    line-height: 1.2;
+    margin: 0;
+}
+
+.afyadesk-access-scope__badge {
+    background: var(--modern-accent-soft);
+    border: 1px solid #ffe1a1;
+    border-radius: 999px;
+    color: #a35d00;
+    flex: 0 0 auto;
+    font-size: 0.78rem;
+    font-weight: 850;
+    padding: 0.45rem 0.75rem;
+}
+
+.afyadesk-access-scope__copy {
+    color: var(--modern-muted);
+    font-size: 0.92rem;
+    font-weight: 650;
+    margin: 0 0 1rem;
+    max-width: 58rem;
+}
+
+.afyadesk-access-scope__grid {
+    align-items: start;
+}
+
+.afyadesk-access-field {
+    margin-bottom: 0;
+}
+
+.afyadesk-access-field label,
+.afyadesk-access-field .form-label,
+.afyadesk-access-field .col-form-label {
+    color: #3c4a5f;
+    font-size: 0.88rem;
+    font-weight: 850;
+    margin-bottom: 0.35rem;
+}
+
+.afyadesk-access-field .field-container,
+.afyadesk-access-field .field-container > span,
+.afyadesk-access-field .select2-container {
+    width: 100% !important;
+}
+
+.afyadesk-access-field .select2-container .select2-selection,
+.afyadesk-access-field select,
+.afyadesk-access-field .form-select {
+    background-color: #fff;
+    border-color: #cbd9ea;
+    border-radius: 0.45rem;
+    min-height: 2.85rem;
+}
+
+.afyadesk-access-field .select2-container .select2-selection__rendered {
+    color: var(--modern-ink);
+    font-weight: 750;
+    line-height: 2.75rem;
+    padding-left: 0.9rem;
+}
+
+.afyadesk-access-field .select2-container .select2-selection__arrow {
+    min-height: 2.75rem;
+}
+
+.afyadesk-entity-field .select2-selection__rendered {
+    color: var(--modern-primary-strong) !important;
+}
+
+.afyadesk-access-scope + .card.border-0.shadow-none {
+    margin-top: 0.75rem !important;
+}
+
+.profile-user .afyadesk-access-scope,
+.profile_user .afyadesk-access-scope {
+    margin-inline: 0.5rem;
+}
+
 .notification-whatsappsetting .generic-show-form .card,
 .notificationwhatsappsetting .generic-show-form .card {
     max-width: 54rem;
+}
+
+@media (max-width: 768px) {
+    .afyadesk-access-scope {
+        padding: 1rem;
+    }
+
+    .afyadesk-access-scope__header {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 0.6rem;
+    }
 }
 
 .dashboard .grid-stack-item-content,

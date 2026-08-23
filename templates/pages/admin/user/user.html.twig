@@ -182,49 +182,101 @@
                             {% endif %}
 
                             {% if item.isNewItem() %}
-                                {{ fields.smallTitle(_n('Authorization', 'Authorizations', 1)) }}
-                                {{ fields.dropdownYesNo('_is_recursive', 0, __('Recursive')) }}
-                                {{ fields.dropdownField('Profile', '_profiles_id', call('Profile::getDefault'), 'Profile'|itemtype_name(1)) }}
-                                {{ fields.dropdownField('Entity', '_entities_id', params.entities_id|default(session('glpiactive_entity')), 'Entity'|itemtype_name(1), {
-                                    display_emptychoice: false,
-                                    entity: session('glpiactiveentities')
-                                }) }}
+                                <section class="afyadesk-access-scope col-12" aria-labelledby="afyadesk-create-access-title">
+                                    <div class="afyadesk-access-scope__header">
+                                        <div>
+                                            <p class="afyadesk-kicker">{{ __('User management') }}</p>
+                                            <h3 id="afyadesk-create-access-title">{{ _n('Authorization', 'Authorizations', 1) }}</h3>
+                                        </div>
+                                        <span class="afyadesk-access-scope__badge">{{ __('Access scope') }}</span>
+                                    </div>
+                                    <p class="afyadesk-access-scope__copy">
+                                        {{ __('Choose the profile and service area this user should start with: County, Sub County, Ward, or Community Health Unit. Include lower levels only when the user should access everything below the selected area.') }}
+                                    </p>
+                                    <div class="row g-3 afyadesk-access-scope__grid">
+                                        {{ fields.dropdownField('Profile', '_profiles_id', call('Profile::getDefault'), 'Profile'|itemtype_name(1), {
+                                            is_horizontal: false,
+                                            field_class: 'col-12 col-lg-4',
+                                            add_field_class: 'afyadesk-access-field'
+                                        }) }}
+                                        {{ fields.dropdownField('Entity', '_entities_id', params.entities_id|default(session('glpiactive_entity')), __('Service area'), {
+                                            display_emptychoice: false,
+                                            entity: session('glpiactiveentities'),
+                                            is_horizontal: false,
+                                            field_class: 'col-12 col-lg-5',
+                                            add_field_class: 'afyadesk-access-field afyadesk-entity-field'
+                                        }) }}
+                                        {{ fields.dropdownYesNo('_is_recursive', 0, __('Include lower levels'), {
+                                            is_horizontal: false,
+                                            field_class: 'col-12 col-lg-3',
+                                            add_field_class: 'afyadesk-access-field'
+                                        }) }}
+                                    </div>
+                                </section>
                             {% else %}
-                                {% if higher_rights or is_my_form %}
-                                    {{ fields.dropdownArrayField(
-                                        name: 'profiles_id',
-                                        value: item.fields['profiles_id'],
-                                        elements: profiles,
-                                        label: __('Default profile'),
-                                        options: {
-                                            display_emptychoice: true,
-                                        }
-                                    ) }}
-                                {% endif %}
-                                {% if higher_rights or is_preference_form%}
-                                    {{ fields.dropdownField('Entity', 'entities_id', item.fields['entities_id']|default(-1), __('Default entity'), {
-                                        toadd: {
-                                            '-1': __('Full structure')
-                                        },
-                                        entity: entities,
-                                    }) }}
-                                {% endif %}
-                                {% if higher_rights %}
-                                    {{ fields.dropdownArrayField(
-                                        name: 'groups_id',
-                                        value: item.fields['groups_id'],
-                                        elements: groups,
-                                        label: __('Default group'),
-                                        options: {
-                                            display_emptychoice: true,
-                                        }
-                                    ) }}
-                                    {{ fields.dropdownField('User', 'users_id_supervisor', item.fields['users_id_supervisor'], __('Supervisor'), {
-                                        entity: session('glpiactive_entity'),
-                                        entity_sons: session('glpiactive_entity_recursive'),
-                                        used: [item.getID()],
-                                        right: 'all'
-                                    }) }}
+                                {% if higher_rights or is_my_form or is_preference_form %}
+                                    <section class="afyadesk-access-scope col-12" aria-labelledby="afyadesk-default-access-title">
+                                        <div class="afyadesk-access-scope__header">
+                                            <div>
+                                                <p class="afyadesk-kicker">{{ __('User management') }}</p>
+                                                <h3 id="afyadesk-default-access-title">{{ __('Default access') }}</h3>
+                                            </div>
+                                            <span class="afyadesk-access-scope__badge">{{ __('Default entity') }}</span>
+                                        </div>
+                                        <p class="afyadesk-access-scope__copy">
+                                            {{ __('Set where this user lands after sign-in and which profile is used by default. Additional County, Sub County, Ward, and Community Health Unit access is managed in the Authorizations tab.') }}
+                                        </p>
+                                        <div class="row g-3 afyadesk-access-scope__grid">
+                                            {% if higher_rights or is_my_form %}
+                                                {{ fields.dropdownArrayField(
+                                                    name: 'profiles_id',
+                                                    value: item.fields['profiles_id'],
+                                                    elements: profiles,
+                                                    label: __('Default profile'),
+                                                    options: {
+                                                        display_emptychoice: true,
+                                                        is_horizontal: false,
+                                                        field_class: 'col-12 col-lg-6',
+                                                        add_field_class: 'afyadesk-access-field'
+                                                    }
+                                                ) }}
+                                            {% endif %}
+                                            {% if higher_rights or is_preference_form%}
+                                                {{ fields.dropdownField('Entity', 'entities_id', item.fields['entities_id']|default(-1), __('Default service area'), {
+                                                    toadd: {
+                                                        '-1': __('Full structure')
+                                                    },
+                                                    entity: entities,
+                                                    is_horizontal: false,
+                                                    field_class: 'col-12 col-lg-6',
+                                                    add_field_class: 'afyadesk-access-field afyadesk-entity-field'
+                                                }) }}
+                                            {% endif %}
+                                            {% if higher_rights %}
+                                                {{ fields.dropdownArrayField(
+                                                    name: 'groups_id',
+                                                    value: item.fields['groups_id'],
+                                                    elements: groups,
+                                                    label: __('Default group'),
+                                                    options: {
+                                                        display_emptychoice: true,
+                                                        is_horizontal: false,
+                                                        field_class: 'col-12 col-lg-6',
+                                                        add_field_class: 'afyadesk-access-field'
+                                                    }
+                                                ) }}
+                                                {{ fields.dropdownField('User', 'users_id_supervisor', item.fields['users_id_supervisor'], __('Supervisor'), {
+                                                    entity: session('glpiactive_entity'),
+                                                    entity_sons: session('glpiactive_entity_recursive'),
+                                                    used: [item.getID()],
+                                                    right: 'all',
+                                                    is_horizontal: false,
+                                                    field_class: 'col-12 col-lg-6',
+                                                    add_field_class: 'afyadesk-access-field'
+                                                }) }}
+                                            {% endif %}
+                                        </div>
+                                    </section>
                                 {% endif %}
 
                                 {% if enable_nickname %}

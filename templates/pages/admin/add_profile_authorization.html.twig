@@ -35,46 +35,64 @@
 
 {% set rand = random() %}
 {% set field_options = {
-    'field_class': 'col-4',
+    'field_class': 'col-12 col-lg-6',
+    'is_horizontal': false,
+    'add_field_class': 'afyadesk-access-field',
 } %}
 <div>
     <form method="post" action="{{ 'Profile_User'|itemtype_form_path }}" data-submit-once>
-        <div class="card-body d-flex flex-wrap p-0 mt-n3">
+        <div class="card-body d-flex flex-wrap p-0">
             <div class="col-12 flex-column">
                 <div class="d-flex flex-row flex-wrap flex-xl-nowrap">
                     <div class="row flex-row align-items-start flex-grow-1">
                         <div class="row flex-row">
                             {{ inputs.hidden('_glpi_csrf_token', csrf_token()) }}
                             {{ inputs.hidden(source_itemtype|itemtype_foreign_key, source_items_id) }}
-                            {{ fields.largeTitle(__('Add an authorization to a user')) }}
-                            {% if source_itemtype != 'Entity' %}
-                                {{ fields.dropdownField('Entity', 'entities_id', session('glpiactive_entity'), 'Entity'|itemtype_name, {
-                                    'entity': session('glpiactiveentities')
-                                }|merge(field_options)) }}
-                            {% endif %}
-                            {% if source_itemtype != 'Profile' %}
-                                {{ fields.dropdownField('Profile', 'profiles_id', null, 'Profile'|itemtype_name, {
-                                    'condition': {
-                                        'WHERE': call('Profile::getUnderActiveProfileRestrictCriteria')
-                                    },
-                                    'display_emptychoice': false,
-                                }|merge(field_options)) }}
-                            {% endif %}
-                            {% if source_itemtype != 'User' %}
-                                {{ fields.dropdownField('User', 'users_id', null, 'User'|itemtype_name, {
-                                    'display_emptychoice': false,
-                                    'entity': session('glpiactiveentities'),
-                                    'right': 'all',
-                                    'used': used_users
-                                }|merge(field_options)) }}
-                            {% endif %}
-                            {{ fields.dropdownYesNo('is_recursive', 0, __('Recursive'), field_options) }}
+                            <section class="afyadesk-access-scope afyadesk-authorization-card col-12" aria-labelledby="afyadesk-add-authorization-title">
+                                <div class="afyadesk-access-scope__header">
+                                    <div>
+                                        <p class="afyadesk-kicker">{{ __('User management') }}</p>
+                                        <h3 id="afyadesk-add-authorization-title">{{ __('Add an authorization to a user') }}</h3>
+                                    </div>
+                                    <span class="afyadesk-access-scope__badge">{{ __('Entity access') }}</span>
+                                </div>
+                                <p class="afyadesk-access-scope__copy">
+                                    {{ __('Assign a profile and service area in one place. The hierarchy is County, Sub County, Ward, then Community Health Unit. Include lower levels only for users who should manage everything below the selected area.') }}
+                                </p>
+                                <div class="row g-3 afyadesk-access-scope__grid">
+                                    {% if source_itemtype != 'Entity' %}
+                                        {{ fields.dropdownField('Entity', 'entities_id', session('glpiactive_entity'), __('Service area'), field_options|merge({
+                                            'entity': session('glpiactiveentities'),
+                                            'add_field_class': 'afyadesk-access-field afyadesk-entity-field'
+                                        })) }}
+                                    {% endif %}
+                                    {% if source_itemtype != 'Profile' %}
+                                        {{ fields.dropdownField('Profile', 'profiles_id', null, 'Profile'|itemtype_name, field_options|merge({
+                                            'condition': {
+                                                'WHERE': call('Profile::getUnderActiveProfileRestrictCriteria')
+                                            },
+                                            'display_emptychoice': false,
+                                        })) }}
+                                    {% endif %}
+                                    {% if source_itemtype != 'User' %}
+                                        {{ fields.dropdownField('User', 'users_id', null, 'User'|itemtype_name, field_options|merge({
+                                            'display_emptychoice': false,
+                                            'entity': session('glpiactiveentities'),
+                                            'right': 'all',
+                                            'used': used_users
+                                        })) }}
+                                    {% endif %}
+                                    {{ fields.dropdownYesNo('is_recursive', 0, __('Include lower levels'), field_options|merge({
+                                        'field_class': 'col-12 col-lg-4'
+                                    })) }}
+                                </div>
+                            </section>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="card-body mx-n2 border-top d-flex flex-row-reverse align-items-start flex-wrap py-2">
+        <div class="card-body mx-n2 border-top d-flex flex-row-reverse align-items-start flex-wrap py-3">
             {{ inputs.submit('add', _x('button', 'Add'), '', {'icon': 'ti ti-plus'}) }}
         </div>
     </form>

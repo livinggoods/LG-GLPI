@@ -1,6 +1,342 @@
 <script>
     document.body.classList.add('afyadesk-users-page');
+    document.documentElement.classList.add('afyadesk-users-page');
 </script>
+<style>
+    html.afyadesk-users-page,
+    body.afyadesk-users-page {
+        background: #eef2f6 !important;
+    }
+
+    body.afyadesk-users-page .navbar.topbar,
+    body.afyadesk-users-page .navbar.navbar-vertical.sidebar,
+    body.afyadesk-users-page .page-header,
+    body:has(.afyadesk-users-shell) .navbar.topbar,
+    body:has(.afyadesk-users-shell) .navbar.navbar-vertical.sidebar,
+    body:has(.afyadesk-users-shell) .page-header {
+        display: none !important;
+    }
+
+    body.afyadesk-users-page.vertical-layout .sidebar ~ .page-wrapper,
+    body.afyadesk-users-page.navbar-collapsed.vertical-layout .sidebar ~ .page-wrapper,
+    body.afyadesk-users-page .page-wrapper,
+    body:has(.afyadesk-users-shell).vertical-layout .sidebar ~ .page-wrapper,
+    body:has(.afyadesk-users-shell).navbar-collapsed.vertical-layout .sidebar ~ .page-wrapper,
+    body:has(.afyadesk-users-shell) .page-wrapper {
+        margin-left: 0 !important;
+        padding-left: 0 !important;
+    }
+
+    body.afyadesk-users-page .page-body.container-fluid,
+    body:has(.afyadesk-users-shell) .page-body.container-fluid {
+        background: #eef2f6 !important;
+        margin: 0 !important;
+        max-width: none !important;
+        padding: 0 !important;
+        width: 100% !important;
+    }
+
+    .afyadesk-users-shell,
+    .afyadesk-users-shell * {
+        box-sizing: border-box;
+        letter-spacing: 0;
+    }
+
+    .afyadesk-users-shell {
+        background: #eef2f6;
+        color: #18202b;
+        font-family: Arial, Helvetica, sans-serif;
+        margin: 0 !important;
+        min-height: 100vh;
+        width: 100%;
+    }
+
+    .afyadesk-users-topbar {
+        align-items: center;
+        background: #075983;
+        color: #fff;
+        display: flex;
+        justify-content: space-between;
+        min-height: 4.7rem;
+        padding: 0.8rem 2.25rem;
+        width: 100%;
+    }
+
+    .afyadesk-users-brand,
+    .afyadesk-users-nav {
+        align-items: center;
+        display: flex;
+        gap: 1rem;
+    }
+
+    .afyadesk-users-brand img {
+        display: block;
+        height: 2rem;
+        max-width: 8rem;
+        object-fit: contain;
+        width: auto;
+    }
+
+    .afyadesk-users-brand h1 {
+        color: #fff;
+        font-size: 1.15rem;
+        font-weight: 800;
+        margin: 0;
+        white-space: nowrap;
+    }
+
+    .afyadesk-users-brand span {
+        background: #fff4dc;
+        border-radius: 999px;
+        color: #f07a00;
+        font-size: 0.8rem;
+        font-weight: 700;
+        padding: 0.35rem 0.8rem;
+        white-space: nowrap;
+    }
+
+    .afyadesk-users-nav a {
+        color: rgb(255 255 255 / 86%);
+        font-size: 0.98rem;
+        font-weight: 600;
+        text-decoration: none;
+    }
+
+    .afyadesk-users-nav a:hover {
+        color: #fff;
+    }
+
+    .afyadesk-users-main {
+        margin-inline: auto;
+        max-width: 72rem;
+        padding: 2rem 1.25rem 3.5rem;
+    }
+
+    .afyadesk-users-card {
+        background: #fff;
+        border: 1px solid #dfe6ee;
+        border-radius: 0.7rem;
+        box-shadow: 0 8px 24px rgb(7 89 131 / 8%);
+        margin-bottom: 1.4rem;
+        padding: 1.45rem;
+    }
+
+    .afyadesk-users-card h2 {
+        color: #202834;
+        font-size: 1.22rem;
+        font-weight: 800;
+        margin: 0 0 1.2rem;
+    }
+
+    .afyadesk-users-form-grid {
+        display: grid;
+        gap: 1rem 1.25rem;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .afyadesk-users-form-grid label,
+    .afyadesk-managed-search {
+        display: grid;
+        gap: 0.35rem;
+        margin: 0;
+    }
+
+    .afyadesk-users-form-grid label:nth-child(5) {
+        grid-column: 1 / 2;
+    }
+
+    .afyadesk-users-form-grid span {
+        color: #4d5968;
+        font-size: 0.9rem;
+        font-weight: 700;
+    }
+
+    .afyadesk-users-form-grid input,
+    .afyadesk-users-form-grid select,
+    .afyadesk-managed-search input {
+        background: #fff;
+        border: 1px solid #d6dde6;
+        border-radius: 0.42rem;
+        color: #1e2733;
+        font-size: 0.96rem;
+        min-height: 2.55rem;
+        padding: 0.5rem 0.75rem;
+        width: 100%;
+    }
+
+    .afyadesk-users-form-grid small {
+        color: #8a929d;
+        font-size: 0.8rem;
+    }
+
+    .afyadesk-users-actions {
+        align-items: center;
+        display: flex;
+        gap: 0.7rem;
+        justify-content: flex-end;
+        margin-top: 1rem;
+    }
+
+    .afyadesk-users-actions .btn {
+        align-items: center;
+        border-radius: 0.42rem;
+        display: inline-flex;
+        font-weight: 800;
+        gap: 0.35rem;
+        justify-content: center;
+        min-height: 2.55rem;
+        padding-inline: 1rem;
+    }
+
+    .afyadesk-users-actions .btn-primary,
+    .afyadesk-users-card .btn-primary {
+        background: #075983;
+        border-color: #075983;
+        min-width: 7.5rem;
+    }
+
+    .afyadesk-managed-header {
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 0.9rem;
+    }
+
+    .afyadesk-managed-header h2 span {
+        color: #7b8491;
+        font-size: 1rem;
+        font-weight: 500;
+        margin-left: 0.4rem;
+    }
+
+    .afyadesk-managed-search {
+        margin-bottom: 0.8rem;
+    }
+
+    .afyadesk-managed-table {
+        display: grid;
+        overflow-x: auto;
+    }
+
+    .afyadesk-managed-row {
+        align-items: center;
+        border-bottom: 1px solid #edf0f4;
+        display: grid;
+        gap: 1rem;
+        grid-template-columns: minmax(12rem, 1.6fr) minmax(8rem, 0.75fr) minmax(7rem, 0.65fr) minmax(13rem, 1.7fr) minmax(5rem, 0.45fr) minmax(4.5rem, 0.4fr);
+        min-height: 4.55rem;
+        min-width: 58rem;
+        padding: 0.85rem 0.75rem;
+    }
+
+    .afyadesk-managed-head {
+        background: #f5f6f8;
+        border-bottom-color: #d9dee5;
+        color: #596575;
+        font-size: 0.82rem;
+        font-weight: 800;
+        min-height: 2.7rem;
+        padding-block: 0.6rem;
+        text-transform: none;
+    }
+
+    .afyadesk-managed-row strong {
+        color: #050b16;
+        font-weight: 800;
+        overflow-wrap: anywhere;
+    }
+
+    .afyadesk-chip-stack {
+        align-items: center;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.3rem;
+    }
+
+    .afyadesk-access-chip,
+    .afyadesk-entity-chip {
+        border-radius: 999px;
+        display: inline-flex;
+        font-size: 0.72rem;
+        font-weight: 800;
+        line-height: 1.2;
+        padding: 0.28rem 0.55rem;
+    }
+
+    .afyadesk-access-chip {
+        background: #fff3df;
+        color: #fb7a00;
+    }
+
+    .afyadesk-access-chip:nth-child(even) {
+        background: #e8f6e8;
+        color: #228348;
+    }
+
+    .afyadesk-entity-chip {
+        background: #fff3df;
+        color: #ff7100;
+    }
+
+    .afyadesk-row-actions {
+        display: grid;
+        gap: 0.35rem;
+        justify-items: end;
+    }
+
+    .afyadesk-row-actions a {
+        background: #eef9ff;
+        border-radius: 0.45rem;
+        color: #006da2;
+        font-size: 0.82rem;
+        font-weight: 800;
+        padding: 0.35rem 0.55rem;
+        text-align: center;
+        text-decoration: none;
+    }
+
+    .afyadesk-row-actions a.is-warning {
+        background: #fff3d8;
+        color: #fb7a00;
+    }
+
+    .afyadesk-managed-empty {
+        color: #7b8491;
+        padding: 1rem;
+    }
+
+    .afyadesk-managed-pagination {
+        align-items: center;
+        display: flex;
+        gap: 0.8rem;
+        justify-content: center;
+        padding-top: 1rem;
+    }
+
+    .afyadesk-users-footnote {
+        color: #a0a7b0;
+        font-size: 0.82rem;
+        margin: 2rem 0 0;
+        text-align: center;
+    }
+
+    @media (max-width: 900px) {
+        .afyadesk-users-topbar,
+        .afyadesk-users-brand,
+        .afyadesk-users-nav {
+            align-items: flex-start;
+            flex-direction: column;
+        }
+
+        .afyadesk-users-form-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .afyadesk-users-form-grid label:nth-child(5) {
+            grid-column: auto;
+        }
+    }
+</style>
 <div class="afyadesk-users-shell">
     <section class="afyadesk-users-topbar">
         <div class="afyadesk-users-brand">

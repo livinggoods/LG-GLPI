@@ -1,0 +1,4 @@
+login,email,first_name,last_name,mobile,access_level,service_area,include_lower_levels
+okana.user,okana.user@example.org,Okana,User,+254700000001,AfyaDesk Community Unit User,Kisumu County > Kadibo Sub County > Kobura Ward > Okana Community Health Unit,no
+kadibo.admin,kadibo.admin@example.org,Kadibo,Admin,+254700000002,AfyaDesk Sub County Admin,Kisumu County > Kadibo Sub County,yes
+kisumu.manager,kisumu.manager@example.org,Kisumu,Manager,+254700000003,AfyaDesk County Admin,Kisumu County,yes

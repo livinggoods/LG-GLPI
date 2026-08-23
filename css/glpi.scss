@@ -1769,8 +1769,145 @@ legend {
     margin: 0 0 1rem;
 }
 
+.afyadesk-access-steps {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+    margin: 0 0 1rem;
+}
+
+.afyadesk-access-steps span {
+    align-items: center;
+    background: #fff;
+    border: 1px solid #d9e7f5;
+    border-radius: 999px;
+    color: #3f5774;
+    display: inline-flex;
+    font-size: 0.78rem;
+    font-weight: 850;
+    gap: 0.35rem;
+    line-height: 1.2;
+    padding: 0.42rem 0.65rem;
+}
+
+.afyadesk-access-steps i {
+    color: var(--modern-primary-strong);
+    font-size: 0.95rem;
+}
+
 .afyadesk-access-scope__grid {
     align-items: start;
+}
+
+.afyadesk-cascade {
+    background: #f8fbff;
+    border: 1px solid #d7e4f4;
+    border-radius: var(--modern-radius);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 75%);
+    grid-column: 1 / -1;
+    margin-top: 0.15rem;
+    padding: 1rem;
+}
+
+.afyadesk-cascade__top {
+    align-items: end;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: minmax(0, 1fr) minmax(15rem, 22rem);
+    margin-bottom: 0.9rem;
+}
+
+.afyadesk-cascade__top h4 {
+    color: var(--modern-ink);
+    font-size: 1rem;
+    font-weight: 900;
+    line-height: 1.25;
+    margin: 0;
+}
+
+.afyadesk-cascade-search,
+.afyadesk-cascade-field {
+    display: grid;
+    gap: 0.35rem;
+}
+
+.afyadesk-cascade-search span,
+.afyadesk-cascade-field span {
+    color: #3c4a5f;
+    font-size: 0.78rem;
+    font-weight: 850;
+}
+
+.afyadesk-cascade-search input,
+.afyadesk-cascade-field select {
+    background: #fff;
+    border: 1px solid #cbd9ea;
+    border-radius: 0.45rem;
+    color: var(--modern-ink);
+    font-size: 0.92rem;
+    font-weight: 700;
+    min-height: 2.6rem;
+    padding: 0.45rem 0.7rem;
+    width: 100%;
+}
+
+.afyadesk-cascade__grid {
+    display: grid;
+    gap: 0.85rem;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.afyadesk-access-preview {
+    align-items: center;
+    background: #fff8e6;
+    border: 1px solid #ffe0a3;
+    border-radius: var(--modern-radius);
+    color: #754600;
+    display: flex;
+    font-size: 0.86rem;
+    font-weight: 800;
+    margin: 0.9rem 0 0;
+    min-height: 2.5rem;
+    padding: 0.6rem 0.75rem;
+}
+
+.afyadesk-validation-message {
+    background: #fff0f0;
+    border: 1px solid #ffc5c5;
+    border-radius: var(--modern-radius);
+    color: #9f1f1f;
+    font-size: 0.86rem;
+    font-weight: 850;
+    margin: 0.75rem 0 0;
+    padding: 0.65rem 0.75rem;
+}
+
+.afyadesk-user-list-tools {
+    background: #fff;
+    border: 1px solid var(--modern-border);
+    border-radius: var(--modern-radius);
+    box-shadow: var(--modern-shadow-sm);
+    margin-bottom: 0.75rem;
+    padding: 0.8rem;
+}
+
+.afyadesk-user-list-tools label {
+    display: grid;
+    gap: 0.35rem;
+    margin: 0;
+}
+
+.afyadesk-user-list-tools span {
+    color: #3c4a5f;
+    font-size: 0.78rem;
+    font-weight: 850;
+}
+
+.afyadesk-user-list-tools input {
+    border: 1px solid #cbd9ea;
+    border-radius: 0.45rem;
+    min-height: 2.55rem;
+    padding: 0.45rem 0.7rem;
 }
 
 .afyadesk-access-field {
@@ -1848,6 +1985,11 @@ legend {
 
     .afyadesk-service-hierarchy i {
         transform: rotate(90deg);
+    }
+
+    .afyadesk-cascade__top,
+    .afyadesk-cascade__grid {
+        grid-template-columns: 1fr;
     }
 }
 

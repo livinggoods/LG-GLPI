@@ -3621,11 +3621,7 @@ HTML;
             'id'                 => '20',
             'table'              => 'glpi_profiles',
             'field'              => 'name',
-            'name'               => sprintf(
-                __('%1$s (%2$s)'),
-                Profile::getTypeName(Session::getPluralNumber()),
-                Entity::getTypeName(1)
-            ),
+            'name'               => __('Access level'),
             'forcegroupby'       => true,
             'massiveaction'      => false,
             'datatype'           => 'dropdown',
@@ -3679,11 +3675,7 @@ HTML;
             'table'              => 'glpi_entities',
             'linkfield'          => 'entities_id',
             'field'              => 'completename',
-            'name'               => sprintf(
-                __('%1$s (%2$s)'),
-                Entity::getTypeName(Session::getPluralNumber()),
-                Profile::getTypeName(1)
-            ),
+            'name'               => __('Service area'),
             'forcegroupby'       => true,
             'datatype'           => 'dropdown',
             'massiveaction'      => false,

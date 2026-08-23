@@ -205,6 +205,12 @@
                                     <p class="afyadesk-access-scope__example">
                                         {{ __('Example: Kisumu County > Kadibo Sub County > Kobura Ward > Okana Community Health Unit') }}
                                     </p>
+                                    <div class="afyadesk-access-steps" aria-label="{{ __('User access setup steps') }}">
+                                        <span><i class="ti ti-id-badge-2" aria-hidden="true"></i>{{ __('Access level') }}</span>
+                                        <span><i class="ti ti-map-pin" aria-hidden="true"></i>{{ __('Service area') }}</span>
+                                        <span><i class="ti ti-eye-check" aria-hidden="true"></i>{{ __('Preview access') }}</span>
+                                        <span><i class="ti ti-file-spreadsheet" aria-hidden="true"></i>{{ __('CSV bulk import ready') }}</span>
+                                    </div>
                                     <div class="row g-3 afyadesk-access-scope__grid">
                                         {{ fields.dropdownField('Profile', '_profiles_id', call('Profile::getDefault'), __('Access level'), {
                                             is_horizontal: false,
@@ -247,6 +253,11 @@
                                             <span>{{ __('Ward') }}</span>
                                             <i class="ti ti-chevron-right" aria-hidden="true"></i>
                                             <span>{{ __('Community Health Unit') }}</span>
+                                        </div>
+                                        <div class="afyadesk-access-steps" aria-label="{{ __('User access setup steps') }}">
+                                            <span><i class="ti ti-id-badge-2" aria-hidden="true"></i>{{ __('Access level') }}</span>
+                                            <span><i class="ti ti-map-pin" aria-hidden="true"></i>{{ __('Service area') }}</span>
+                                            <span><i class="ti ti-eye-check" aria-hidden="true"></i>{{ __('Preview access') }}</span>
                                         </div>
                                         <div class="row g-3 afyadesk-access-scope__grid">
                                             {% if higher_rights or is_my_form %}

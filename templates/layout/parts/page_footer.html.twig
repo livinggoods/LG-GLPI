@@ -55,6 +55,7 @@
    {% for js_file in js_files %}
       <script type="text/javascript" src="{{ js_path(js_file.path, js_file.options ?? []) }}"></script>
    {% endfor %}
+   <script type="text/javascript" src="{{ js_path('js/afyadesk-user-access.js') }}"></script>
 
    {% for js_file in js_modules %}
       <script type="module" src="{{ js_path(js_file.path, js_file.options ?? []) }}"></script>

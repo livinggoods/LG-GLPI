@@ -164,7 +164,7 @@ $page = min($page, $pages);
 $offset = ($page - 1) * $limit;
 $users = array_slice($all_users, $offset, $limit);
 
-Html::header(__('AfyaDesk user management'), $_SERVER['PHP_SELF'], 'admin', 'user');
+Html::nullHeader(__('AfyaDesk user management'));
 TemplateRenderer::getInstance()->display('pages/admin/afyadesk_users.html.twig', [
     'message'  => $message,
     'error'    => $error,
@@ -176,4 +176,4 @@ TemplateRenderer::getInstance()->display('pages/admin/afyadesk_users.html.twig',
     'pages'    => $pages,
     'total'    => $total,
 ]);
-Html::footer();
+Html::nullFooter();

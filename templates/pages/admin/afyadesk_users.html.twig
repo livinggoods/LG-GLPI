@@ -1,6 +1,12 @@
 <script>
     document.body.classList.add('afyadesk-users-page');
     document.documentElement.classList.add('afyadesk-users-page');
+    document.addEventListener('DOMContentLoaded', function () {
+        document.body.classList.add('afyadesk-users-page');
+        document.querySelectorAll('.navbar.topbar, .navbar.navbar-vertical.sidebar, .page-header').forEach(function (node) {
+            node.style.display = 'none';
+        });
+    });
 </script>
 <style>
     html.afyadesk-users-page,
@@ -336,6 +342,272 @@
             grid-column: auto;
         }
     }
+
+    body.afyadesk-users-page {
+        overflow-x: hidden;
+    }
+
+    .afyadesk-users-shell {
+        background:
+            linear-gradient(180deg, #eaf4fb 0, #eef2f6 18rem, #f6f8fb 100%);
+    }
+
+    .afyadesk-users-topbar {
+        background: #075983;
+        border-bottom: 4px solid #ffb52e;
+        min-height: 4.25rem;
+        padding-inline: max(1.25rem, calc((100vw - 72rem) / 2));
+    }
+
+    .afyadesk-users-brand img {
+        height: 1.65rem;
+        max-width: 9rem;
+    }
+
+    .afyadesk-users-brand h1 {
+        border-left: 1px solid rgb(255 255 255 / 24%);
+        padding-left: 1rem;
+    }
+
+    .afyadesk-users-nav {
+        background: rgb(255 255 255 / 10%);
+        border: 1px solid rgb(255 255 255 / 14%);
+        border-radius: 999px;
+        gap: 0.25rem;
+        padding: 0.25rem;
+    }
+
+    .afyadesk-users-nav a {
+        border-radius: 999px;
+        padding: 0.45rem 0.85rem;
+    }
+
+    .afyadesk-users-nav a:hover {
+        background: rgb(255 255 255 / 13%);
+    }
+
+    .afyadesk-users-main {
+        max-width: 72rem;
+        padding: 1.15rem 1.25rem 2.5rem;
+    }
+
+    .afyadesk-users-hero {
+        align-items: stretch;
+        display: grid;
+        gap: 1rem;
+        grid-template-columns: minmax(0, 1fr) 20rem;
+        margin-bottom: 1rem;
+    }
+
+    .afyadesk-users-hero-copy {
+        background: #fff;
+        border: 1px solid #dfe9f2;
+        border-left: 0.45rem solid #075983;
+        border-radius: 0.85rem;
+        box-shadow: 0 12px 32px rgb(7 89 131 / 8%);
+        padding: 1.05rem 1.2rem;
+    }
+
+    .afyadesk-users-eyebrow {
+        color: #f07a00;
+        display: block;
+        font-size: 0.78rem;
+        font-weight: 850;
+        margin-bottom: 0.45rem;
+        text-transform: uppercase;
+    }
+
+    .afyadesk-users-hero h2 {
+        color: #0e243d;
+        font-size: clamp(1.45rem, 2vw, 2rem);
+        font-weight: 900;
+        line-height: 1.1;
+        margin: 0;
+    }
+
+    .afyadesk-users-hero p {
+        color: #5f6f83;
+        font-size: 0.92rem;
+        line-height: 1.45;
+        margin: 0.5rem 0 0;
+        max-width: 46rem;
+    }
+
+    .afyadesk-users-kpis {
+        display: grid;
+        gap: 0.75rem;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .afyadesk-users-kpi {
+        background: #fff;
+        border: 1px solid #dfe9f2;
+        border-radius: 0.85rem;
+        box-shadow: 0 12px 32px rgb(7 89 131 / 8%);
+        min-height: auto;
+        padding: 0.85rem;
+    }
+
+    .afyadesk-users-kpi span {
+        color: #68798d;
+        display: block;
+        font-size: 0.76rem;
+        font-weight: 800;
+        margin-bottom: 0.35rem;
+        text-transform: uppercase;
+    }
+
+    .afyadesk-users-kpi strong {
+        color: #075983;
+        display: block;
+        font-size: 1.45rem;
+        font-weight: 900;
+        line-height: 1;
+    }
+
+    .afyadesk-users-card {
+        border: 1px solid #dfe9f2;
+        border-radius: 0.85rem;
+        box-shadow: 0 16px 42px rgb(7 89 131 / 9%);
+        overflow: hidden;
+        padding: 0;
+    }
+
+    .afyadesk-card-heading {
+        align-items: center;
+        background: #fbfdff;
+        border-bottom: 1px solid #e2eaf2;
+        display: flex;
+        justify-content: space-between;
+        padding: 1rem 1.25rem;
+    }
+
+    .afyadesk-card-heading h2,
+    .afyadesk-managed-header h2 {
+        margin: 0;
+    }
+
+    .afyadesk-card-heading p {
+        color: #69798d;
+        font-size: 0.86rem;
+        margin: 0.25rem 0 0;
+    }
+
+    .afyadesk-add-card form,
+    .afyadesk-managed-body {
+        padding: 1.1rem 1.25rem;
+    }
+
+    .afyadesk-users-form-grid {
+        gap: 1rem;
+        grid-template-columns: repeat(6, 1fr);
+    }
+
+    .afyadesk-users-form-grid label:nth-child(1),
+    .afyadesk-users-form-grid label:nth-child(2),
+    .afyadesk-users-form-grid label:nth-child(3),
+    .afyadesk-users-form-grid label:nth-child(5) {
+        grid-column: span 3;
+    }
+
+    .afyadesk-users-form-grid label:nth-child(4) {
+        grid-column: 1 / -1;
+    }
+
+    .afyadesk-users-form-grid input,
+    .afyadesk-users-form-grid select,
+    .afyadesk-managed-search input {
+        border-color: #cfdce8;
+        border-radius: 0.55rem;
+        min-height: 2.75rem;
+    }
+
+    .afyadesk-users-form-grid input:focus,
+    .afyadesk-users-form-grid select:focus,
+    .afyadesk-managed-search input:focus {
+        border-color: #075983;
+        box-shadow: 0 0 0 0.2rem rgb(7 89 131 / 12%);
+        outline: 0;
+    }
+
+    .afyadesk-users-actions {
+        border-top: 1px solid #e7eef5;
+        margin-inline: -1.25rem;
+        padding: 1rem 1.25rem 0;
+    }
+
+    .afyadesk-managed-header {
+        background: #fbfdff;
+        border-bottom: 1px solid #e2eaf2;
+        padding: 1rem 1.25rem;
+    }
+
+    .afyadesk-managed-table {
+        border: 1px solid #e4ebf2;
+        border-radius: 0.65rem;
+    }
+
+    .afyadesk-managed-row {
+        grid-template-columns: minmax(12rem, 1.3fr) minmax(8rem, 0.8fr) minmax(8rem, 0.7fr) minmax(14rem, 1.5fr) minmax(5rem, 0.4fr) minmax(5rem, 0.4fr);
+        min-height: 3.65rem;
+        padding-inline: 1rem;
+    }
+
+    .afyadesk-managed-row:not(.afyadesk-managed-head):nth-child(odd) {
+        background: #fbfdff;
+    }
+
+    .afyadesk-managed-head {
+        background: #075983;
+        color: #fff;
+        min-height: 2.85rem;
+    }
+
+    .afyadesk-row-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+        justify-content: flex-end;
+    }
+
+    .afyadesk-row-actions a {
+        min-width: 4.2rem;
+        padding-block: 0.3rem;
+    }
+
+    .afyadesk-managed-row:not(.afyadesk-managed-head) {
+        font-size: 0.92rem;
+    }
+
+    .afyadesk-managed-pagination {
+        padding-top: 0.85rem;
+    }
+
+    @media (max-width: 900px) {
+        .afyadesk-users-hero,
+        .afyadesk-users-kpis {
+            grid-template-columns: 1fr;
+        }
+
+        .afyadesk-users-form-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .afyadesk-users-form-grid label:nth-child(1),
+        .afyadesk-users-form-grid label:nth-child(2),
+        .afyadesk-users-form-grid label:nth-child(3),
+        .afyadesk-users-form-grid label:nth-child(4),
+        .afyadesk-users-form-grid label:nth-child(5) {
+            grid-column: auto;
+        }
+
+        .afyadesk-users-actions,
+        .afyadesk-card-heading,
+        .afyadesk-managed-header {
+            align-items: stretch;
+            flex-direction: column;
+        }
+    }
 </style>
 <div class="afyadesk-users-shell">
     <section class="afyadesk-users-topbar">
@@ -351,6 +623,28 @@
     </section>
 
     <main class="afyadesk-users-main">
+        <section class="afyadesk-users-hero">
+            <div class="afyadesk-users-hero-copy">
+                <span class="afyadesk-users-eyebrow">{{ __('AfyaDesk access control') }}</span>
+                <h2>{{ __('Manage service-area users without leaving GLPI') }}</h2>
+                <p>{{ __('Create accounts, assign AfyaDesk access levels, and review user coverage by county, sub county, ward, or community health unit.') }}</p>
+            </div>
+            <div class="afyadesk-users-kpis">
+                <div class="afyadesk-users-kpi">
+                    <span>{{ __('Users') }}</span>
+                    <strong>{{ total }}</strong>
+                </div>
+                <div class="afyadesk-users-kpi">
+                    <span>{{ __('Page') }}</span>
+                    <strong>{{ page }}</strong>
+                </div>
+                <div class="afyadesk-users-kpi">
+                    <span>{{ __('Views') }}</span>
+                    <strong>{{ pages }}</strong>
+                </div>
+            </div>
+        </section>
+
         {% if error %}
             <div class="alert alert-danger">{{ error }}</div>
         {% endif %}
@@ -358,8 +652,17 @@
             <div class="alert alert-success">{{ message }}</div>
         {% endif %}
 
-        <section class="afyadesk-users-card">
-            <h2>{{ __('Add User') }}</h2>
+        <section class="afyadesk-users-card afyadesk-add-card">
+            <div class="afyadesk-card-heading">
+                <div>
+                    <h2>{{ __('Add User') }}</h2>
+                    <p>{{ __('Assign the first profile and service area for a new account.') }}</p>
+                </div>
+                <a class="btn btn-outline-secondary" href="{{ path('/front/afyadesk.user_import.php') }}">
+                    <i class="ti ti-file-spreadsheet"></i>
+                    {{ __('Bulk import') }}
+                </a>
+            </div>
             <form method="post" data-submit-once>
                 <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
                 <div class="afyadesk-users-form-grid">
@@ -397,10 +700,6 @@
                     </label>
                 </div>
                 <div class="afyadesk-users-actions">
-                    <a class="btn btn-outline-secondary" href="{{ path('/front/afyadesk.user_import.php') }}">
-                        <i class="ti ti-file-spreadsheet"></i>
-                        {{ __('Bulk import') }}
-                    </a>
                     <button class="btn btn-primary" type="submit">{{ __('Add User') }}</button>
                 </div>
             </form>
@@ -410,59 +709,61 @@
             <div class="afyadesk-managed-header">
                 <h2>{{ __('Managed Users') }} <span>({{ total }})</span></h2>
             </div>
-            <form method="get" class="afyadesk-managed-search">
-                <input type="search" name="q" value="{{ query }}" placeholder="{{ __('Search by email, name, or CU...') }}">
-            </form>
-            <div class="afyadesk-managed-table">
-                <div class="afyadesk-managed-row afyadesk-managed-head">
-                    <span>{{ __('Email / Username') }}</span>
-                    <span>{{ __('Name') }}</span>
-                    <span>{{ __('Access') }}</span>
-                    <span>{{ __('Entities') }}</span>
-                    <span>{{ __('Auth') }}</span>
-                    <span></span>
-                </div>
-                {% for user in users %}
-                    <div class="afyadesk-managed-row">
-                        <strong>{{ user.login }}</strong>
-                        <span>{{ user.name ?: '-' }}</span>
-                        <span class="afyadesk-chip-stack">
-                            {% for profile in user.profiles %}
-                                <span class="afyadesk-access-chip">{{ profile|replace({'AfyaDesk ': '', 'Community Unit User': 'CU', 'County Admin': 'County', 'Sub County Admin': 'Subcounty', 'Ward Supervisor': 'Ward'}) }}</span>
-                            {% else %}
-                                <span class="text-muted">-</span>
-                            {% endfor %}
-                        </span>
-                        <span class="afyadesk-chip-stack">
-                            {% for area in user.service_areas %}
-                                <span class="afyadesk-entity-chip">{{ area|split(' > ')|last }}</span>
-                            {% else %}
-                                <span class="text-muted">-</span>
-                            {% endfor %}
-                        </span>
-                        <span>{{ user.auth }}</span>
-                        <span class="afyadesk-row-actions">
-                            <a href="{{ path('/front/user.form.php?id=' ~ user.id) }}">{{ __('Edit') }}</a>
-                            <a class="is-warning" href="{{ path('/front/user.form.php?id=' ~ user.id) }}">{{ __('Reset PW') }}</a>
-                        </span>
+            <div class="afyadesk-managed-body">
+                <form method="get" class="afyadesk-managed-search">
+                    <input type="search" name="q" value="{{ query }}" placeholder="{{ __('Search by email, name, or service area...') }}">
+                </form>
+                <div class="afyadesk-managed-table">
+                    <div class="afyadesk-managed-row afyadesk-managed-head">
+                        <span>{{ __('Email / Username') }}</span>
+                        <span>{{ __('Name') }}</span>
+                        <span>{{ __('Access') }}</span>
+                        <span>{{ __('Entities') }}</span>
+                        <span>{{ __('Auth') }}</span>
+                        <span></span>
                     </div>
-                {% else %}
-                    <div class="afyadesk-managed-empty">{{ __('No users found.') }}</div>
-                {% endfor %}
-            </div>
+                    {% for user in users %}
+                        <div class="afyadesk-managed-row">
+                            <strong>{{ user.login }}</strong>
+                            <span>{{ user.name ?: '-' }}</span>
+                            <span class="afyadesk-chip-stack">
+                                {% for profile in user.profiles %}
+                                    <span class="afyadesk-access-chip">{{ profile|replace({'AfyaDesk ': '', 'Community Unit User': 'CU', 'County Admin': 'County', 'Sub County Admin': 'Subcounty', 'Ward Supervisor': 'Ward'}) }}</span>
+                                {% else %}
+                                    <span class="text-muted">-</span>
+                                {% endfor %}
+                            </span>
+                            <span class="afyadesk-chip-stack">
+                                {% for area in user.service_areas %}
+                                    <span class="afyadesk-entity-chip">{{ area|split(' > ')|last }}</span>
+                                {% else %}
+                                    <span class="text-muted">-</span>
+                                {% endfor %}
+                            </span>
+                            <span>{{ user.auth }}</span>
+                            <span class="afyadesk-row-actions">
+                                <a href="{{ path('/front/user.form.php?id=' ~ user.id) }}">{{ __('Edit') }}</a>
+                                <a class="is-warning" href="{{ path('/front/user.form.php?id=' ~ user.id) }}">{{ __('Reset PW') }}</a>
+                            </span>
+                        </div>
+                    {% else %}
+                        <div class="afyadesk-managed-empty">{{ __('No users found.') }}</div>
+                    {% endfor %}
+                </div>
 
-            <div class="afyadesk-managed-pagination">
-                {% if page > 1 %}
-                    <a class="btn btn-outline-secondary btn-sm" href="{{ path('/front/afyadesk.users.php?page=' ~ (page - 1) ~ '&q=' ~ query|url_encode) }}">{{ __('Previous') }}</a>
-                {% else %}
-                    <button class="btn btn-outline-secondary btn-sm" disabled>{{ __('Previous') }}</button>
-                {% endif %}
-                <span>{{ __('Page') }} {{ page }} {{ __('of') }} {{ pages }} ({{ total }} {{ __('users') }})</span>
-                {% if page < pages %}
-                    <a class="btn btn-outline-secondary btn-sm" href="{{ path('/front/afyadesk.users.php?page=' ~ (page + 1) ~ '&q=' ~ query|url_encode) }}">{{ __('Next') }}</a>
-                {% else %}
-                    <button class="btn btn-outline-secondary btn-sm" disabled>{{ __('Next') }}</button>
-                {% endif %}
+                <div class="afyadesk-managed-pagination">
+                    {% if page > 1 %}
+                        <a class="btn btn-outline-secondary btn-sm" href="{{ path('/front/afyadesk.users.php?page=' ~ (page - 1) ~ '&q=' ~ query|url_encode) }}">{{ __('Previous') }}</a>
+                    {% else %}
+                        <button class="btn btn-outline-secondary btn-sm" disabled>{{ __('Previous') }}</button>
+                    {% endif %}
+                    <span>{{ __('Page') }} {{ page }} {{ __('of') }} {{ pages }} ({{ total }} {{ __('users') }})</span>
+                    {% if page < pages %}
+                        <a class="btn btn-outline-secondary btn-sm" href="{{ path('/front/afyadesk.users.php?page=' ~ (page + 1) ~ '&q=' ~ query|url_encode) }}">{{ __('Next') }}</a>
+                    {% else %}
+                        <button class="btn btn-outline-secondary btn-sm" disabled>{{ __('Next') }}</button>
+                    {% endif %}
+                </div>
             </div>
         </section>
 

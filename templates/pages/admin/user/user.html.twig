@@ -188,7 +188,7 @@
                                             <p class="afyadesk-kicker">{{ __('User management') }}</p>
                                             <h3 id="afyadesk-create-access-title">{{ _n('Authorization', 'Authorizations', 1) }}</h3>
                                         </div>
-                                        <span class="afyadesk-access-scope__badge">{{ __('Access scope') }}</span>
+                                        <span class="afyadesk-access-scope__badge">{{ __('Create user') }}</span>
                                     </div>
                                     <p class="afyadesk-access-scope__copy">
                                         {{ __('Choose the profile and service area this user should start with: County, Sub County, Ward, or Community Health Unit. Include lower levels only when the user should access everything below the selected area.') }}
@@ -206,13 +206,14 @@
                                         {{ __('Example: Kisumu County > Kadibo Sub County > Kobura Ward > Okana Community Health Unit') }}
                                     </p>
                                     <div class="row g-3 afyadesk-access-scope__grid">
-                                        {{ fields.dropdownField('Profile', '_profiles_id', call('Profile::getDefault'), 'Profile'|itemtype_name(1), {
+                                        {{ fields.dropdownField('Profile', '_profiles_id', call('Profile::getDefault'), __('Access level'), {
                                             is_horizontal: false,
                                             field_class: 'col-12 col-lg-4',
                                             add_field_class: 'afyadesk-access-field'
                                         }) }}
                                         {{ fields.dropdownField('Entity', '_entities_id', params.entities_id|default(session('glpiactive_entity')), __('Service area'), {
-                                            display_emptychoice: false,
+                                            display_emptychoice: true,
+                                            emptylabel: __('Select service area'),
                                             entity: session('glpiactiveentities'),
                                             is_horizontal: false,
                                             field_class: 'col-12 col-lg-5',
@@ -253,7 +254,7 @@
                                                     name: 'profiles_id',
                                                     value: item.fields['profiles_id'],
                                                     elements: profiles,
-                                                    label: __('Default profile'),
+                                                    label: __('Default access level'),
                                                     options: {
                                                         display_emptychoice: true,
                                                         is_horizontal: false,

@@ -54,7 +54,7 @@
                                         <p class="afyadesk-kicker">{{ __('User management') }}</p>
                                         <h3 id="afyadesk-add-authorization-title">{{ __('Add an authorization to a user') }}</h3>
                                     </div>
-                                    <span class="afyadesk-access-scope__badge">{{ __('Entity access') }}</span>
+                                    <span class="afyadesk-access-scope__badge">{{ __('Service area access') }}</span>
                                 </div>
                                 <p class="afyadesk-access-scope__copy">
                                     {{ __('Assign a profile and service area in one place. The hierarchy is County, Sub County, Ward, then Community Health Unit. Include lower levels only for users who should manage everything below the selected area.') }}
@@ -75,11 +75,13 @@
                                     {% if source_itemtype != 'Entity' %}
                                         {{ fields.dropdownField('Entity', 'entities_id', session('glpiactive_entity'), __('Service area'), field_options|merge({
                                             'entity': session('glpiactiveentities'),
+                                            'display_emptychoice': true,
+                                            'emptylabel': __('Select service area'),
                                             'add_field_class': 'afyadesk-access-field afyadesk-entity-field'
                                         })) }}
                                     {% endif %}
                                     {% if source_itemtype != 'Profile' %}
-                                        {{ fields.dropdownField('Profile', 'profiles_id', null, 'Profile'|itemtype_name, field_options|merge({
+                                        {{ fields.dropdownField('Profile', 'profiles_id', null, __('Access level'), field_options|merge({
                                             'condition': {
                                                 'WHERE': call('Profile::getUnderActiveProfileRestrictCriteria')
                                             },

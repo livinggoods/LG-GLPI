@@ -4,7 +4,9 @@ use Glpi\Application\View\TemplateRenderer;
 
 include('../inc/includes.php');
 
-Session::checkRight('user', READ);
+if (!Session::getLoginUserID()) {
+    Html::redirect($CFG_GLPI['root_doc'] . '/front/login.php');
+}
 
 global $DB;
 
@@ -66,69 +68,101 @@ $page = max(1, (int) ($_GET['page'] ?? 1));
 $limit = 20;
 $offset = ($page - 1) * $limit;
 
+$profile_order = [
+    'AfyaDesk County Admin'        => 1,
+    'AfyaDesk Sub County Admin'    => 2,
+    'AfyaDesk Ward Supervisor'     => 3,
+    'AfyaDesk Community Unit User' => 4,
+];
+$profile_lookup = [];
 $profiles = [];
-$profile_result = $DB->query(
-    "SELECT id, name FROM glpi_profiles
-     WHERE name LIKE 'AfyaDesk %' OR name IN ('Self-Service', 'Observer', 'Technician', 'Super-Admin')
-     ORDER BY FIELD(name, 'AfyaDesk County Admin', 'AfyaDesk Sub County Admin', 'AfyaDesk Ward Supervisor', 'AfyaDesk Community Unit User') DESC, name"
-);
-while ($row = $profile_result->fetch_assoc()) {
-    $profiles[] = $row;
+$profile_iterator = $DB->request([
+    'SELECT' => ['id', 'name'],
+    'FROM'   => Profile::getTable(),
+    'ORDER'  => 'name',
+]);
+foreach ($profile_iterator as $row) {
+    $profile_lookup[(int) $row['id']] = $row['name'];
+    if (str_starts_with($row['name'], 'AfyaDesk ') || in_array($row['name'], ['Self-Service', 'Observer', 'Technician', 'Super-Admin'], true)) {
+        $profiles[] = [
+            'id'    => (int) $row['id'],
+            'name'  => $row['name'],
+            '_rank' => $profile_order[$row['name']] ?? 99,
+        ];
+    }
 }
+usort($profiles, static fn($a, $b) => [$a['_rank'], $a['name']] <=> [$b['_rank'], $b['name']]);
+$profiles = array_map(static fn($profile) => ['id' => $profile['id'], 'name' => $profile['name']], $profiles);
 
+$entity_lookup = [];
 $entities = [];
-$entity_result = $DB->query(
-    "SELECT id, completename, level FROM glpi_entities
-     WHERE id > 0
-     ORDER BY completename"
-);
-while ($row = $entity_result->fetch_assoc()) {
-    $entities[] = $row;
+$entity_iterator = $DB->request([
+    'SELECT' => ['id', 'completename', 'level'],
+    'FROM'   => Entity::getTable(),
+    'ORDER'  => 'completename',
+]);
+foreach ($entity_iterator as $row) {
+    if ((int) $row['id'] <= 0) {
+        continue;
+    }
+    $entity_lookup[(int) $row['id']] = $row['completename'];
+    $entities[] = [
+        'id'           => (int) $row['id'],
+        'completename' => $row['completename'],
+        'level'        => (int) $row['level'],
+    ];
 }
 
-$where = "u.is_deleted = 0";
-$safe_query = $DB->escape($query);
-if ($query !== '') {
-    $where .= " AND (u.name LIKE '%$safe_query%' OR u.firstname LIKE '%$safe_query%' OR u.realname LIKE '%$safe_query%' OR e.completename LIKE '%$safe_query%' OR p.name LIKE '%$safe_query%')";
+$user_access = [];
+$profile_user_iterator = $DB->request([
+    'SELECT' => ['users_id', 'profiles_id', 'entities_id'],
+    'FROM'   => Profile_User::getTable(),
+]);
+foreach ($profile_user_iterator as $row) {
+    $users_id = (int) $row['users_id'];
+    $profiles_id = (int) $row['profiles_id'];
+    $entities_id = (int) $row['entities_id'];
+    $user_access[$users_id]['profiles'][$profiles_id] = $profile_lookup[$profiles_id] ?? null;
+    $user_access[$users_id]['service_areas'][$entities_id] = $entity_lookup[$entities_id] ?? null;
 }
 
-$count_result = $DB->query("SELECT COUNT(DISTINCT u.id) AS total FROM glpi_users u
-    LEFT JOIN glpi_profiles_users pu ON pu.users_id = u.id
-    LEFT JOIN glpi_profiles p ON p.id = pu.profiles_id
-    LEFT JOIN glpi_entities e ON e.id = pu.entities_id
-    WHERE $where");
-$total = (int) ($count_result->fetch_assoc()['total'] ?? 0);
-$pages = max(1, (int) ceil($total / $limit));
+$all_users = [];
+$user_iterator = $DB->request([
+    'SELECT' => ['id', 'name', 'firstname', 'realname', 'authtype'],
+    'FROM'   => User::getTable(),
+    'WHERE'  => ['is_deleted' => 0],
+    'ORDER'  => 'name',
+]);
+foreach ($user_iterator as $row) {
+    $profiles_list = array_values(array_filter($user_access[(int) $row['id']]['profiles'] ?? []));
+    $areas_list = array_values(array_filter($user_access[(int) $row['id']]['service_areas'] ?? []));
+    $display_name = trim($row['firstname'] . ' ' . $row['realname']);
 
-$users = [];
-$result = $DB->query("SELECT
-        u.id,
-        u.name AS login,
-        u.firstname,
-        u.realname,
-        u.authtype,
-        GROUP_CONCAT(DISTINCT p.name ORDER BY p.name SEPARATOR '||') AS profiles,
-        GROUP_CONCAT(DISTINCT e.completename ORDER BY e.completename SEPARATOR '||') AS service_areas
-    FROM glpi_users u
-    LEFT JOIN glpi_profiles_users pu ON pu.users_id = u.id
-    LEFT JOIN glpi_profiles p ON p.id = pu.profiles_id
-    LEFT JOIN glpi_entities e ON e.id = pu.entities_id
-    WHERE $where
-    GROUP BY u.id
-    ORDER BY u.name
-    LIMIT $limit OFFSET $offset");
-while ($row = $result->fetch_assoc()) {
-    $profiles_list = array_filter(explode('||', (string) $row['profiles']));
-    $areas_list = array_filter(explode('||', (string) $row['service_areas']));
-    $users[] = [
+    $haystack = Toolbox::strtolower(implode(' ', [
+        $row['name'],
+        $display_name,
+        implode(' ', $profiles_list),
+        implode(' ', $areas_list),
+    ]));
+    if ($query !== '' && !str_contains($haystack, Toolbox::strtolower($query))) {
+        continue;
+    }
+
+    $all_users[] = [
         'id'            => (int) $row['id'],
-        'login'         => $row['login'],
-        'name'          => trim($row['firstname'] . ' ' . $row['realname']),
+        'login'         => $row['name'],
+        'name'          => $display_name,
         'profiles'      => $profiles_list,
         'service_areas' => array_map(static fn($area) => preg_replace('/^Root entity > /', '', $area), $areas_list),
         'auth'          => ((int) $row['authtype']) === Auth::DB_GLPI ? __('Password') : __('External'),
     ];
 }
+
+$total = count($all_users);
+$pages = max(1, (int) ceil($total / $limit));
+$page = min($page, $pages);
+$offset = ($page - 1) * $limit;
+$users = array_slice($all_users, $offset, $limit);
 
 Html::header(__('AfyaDesk user management'), $_SERVER['PHP_SELF'], 'admin', 'user');
 TemplateRenderer::getInstance()->display('pages/admin/afyadesk_users.html.twig', [
